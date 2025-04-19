@@ -77,6 +77,103 @@ options:
                         name of font (2048 bytes)
 
 Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
+<h1 id="usage">Usage</h1>
+<h2 id="main-control">main control</h2>
+<table>
+<thead>
+<tr class="header">
+<th>shotcut</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alt-o</td>
+<td>open PETSCII (json)</td>
+</tr>
+<tr class="even">
+<td>Alt-s</td>
+<td>save PETSCII (json)</td>
+</tr>
+<tr class="odd">
+<td>Ctl-s</td>
+<td>save PETSCII (json)</td>
+</tr>
+<tr class="even">
+<td>Alt-e</td>
+<td>export PETSCII (bin)</td>
+</tr>
+<tr class="odd">
+<td>Alt-g</td>
+<td>toggle grid</td>
+</tr>
+<tr class="even">
+<td>Ctl-z</td>
+<td>undo</td>
+</tr>
+<tr class="odd">
+<td>Ctl-x</td>
+<td>cut</td>
+</tr>
+<tr class="even">
+<td>Ctl-c</td>
+<td>copy</td>
+</tr>
+<tr class="odd">
+<td>Ctl-v</td>
+<td>paste</td>
+</tr>
+<tr class="even">
+<td>Alt-q</td>
+<td>quit</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mouse-control">mouse control</h2>
+<table>
+<thead>
+<tr class="header">
+<th>mousebutton</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>left-mousebutton</td>
+<td>draw</td>
+</tr>
+<tr class="even">
+<td>right-mousebutton</td>
+<td>select a rectangle for cut and copy.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="draw-modes">draw modes</h2>
+<table>
+<thead>
+<tr class="header">
+<th>mode</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>draw</td>
+<td>set character and color</td>
+</tr>
+<tr class="even">
+<td>brush</td>
+<td>set color only</td>
+</tr>
+<tr class="odd">
+<td>pencil</td>
+<td>set character only</td>
+</tr>
+</tbody>
+</table>
+<p>Note: When setting the backround (<span
+class="math inline"><em>d</em>021)<em>a</em><em>n</em><em>d</em><em>b</em><em>o</em><em>r</em><em>d</em><em>e</em><em>r</em>(</span>d020)
+color, select a color and then click into the petscii image.</p>
 <h1 id="file-formats">File Formats</h1>
 <p>The PETSCII image is stored as a json file. It can be exported to a
 binary.</p>

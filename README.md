@@ -35,6 +35,46 @@ portable | available on Linux, MacOS, Windows and any other system supported by 
 
 
 
+# Usage
+
+## main control
+
+
+shotcut | description
+---|---
+Alt-o | open PETSCII (json)
+Alt-s | save PETSCII (json)
+Ctl-s | save PETSCII (json)
+Alt-e | export PETSCII (bin)
+Alt-g | toggle grid
+Ctl-z | undo
+Ctl-x | cut
+Ctl-c | copy
+Ctl-v | paste
+Alt-q | quit
+
+
+## mouse control
+
+mousebutton | description
+---|---
+left-mousebutton | draw
+right-mousebutton | select a rectangle for cut and copy.
+
+
+## draw modes
+
+mode | description
+---|---
+draw | set character and color
+brush | set color only
+pencil | set character only
+
+Note:
+When setting the backround ($d021) and border ($d020) color, select a color and then click into the petscii image.
+
+
+
 # File Formats
 
 The PETSCII image is stored as a json file. It can be exported to a binary.
