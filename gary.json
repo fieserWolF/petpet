@@ -1,11 +1,12 @@
 {
     "info": {
         "program": "PetPet",
-        "version": "1.00"
+        "version": "1.01"
     },
     "settings": {
         "grid": false,
         "background": 0,
+        "border": 0,
         "font": "./resources/charrom_uppercase.bin"
     },
     "char": [
