@@ -17,7 +17,7 @@ portable | available on Linux, MacOS, Windows and any other system supported by 
 
 # Commandline options
 
-	PetPet v1.01 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
+	PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
 	usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
 
 	This is a PETSCII editor. Press F1 for help in the program.
@@ -107,19 +107,12 @@ or
 [wolf@abyss-connection.de](wolf@abyss-connection.de)
 
 
-## Changes in 1.01 REVISION PARTY 2025
-
-- first public release
-- various bug-fixes and speed optimizations
-- cut, copy and paste feature
-- PETSCII-Editor import and export
-- new chars layout
-- added border
-
 
 ## Changes in 1.0
 
-- initial private release for testing
+released on REVISION PARTY 2025
+
+- initial release
 # License
 
 _PetPet is a PETSCII editor for Commodore 64 computers._

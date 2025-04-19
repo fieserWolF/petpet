@@ -7,7 +7,7 @@
 
 exit 0
 
-PetPet v1.01 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
+PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
 usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
 
 This is a PETSCII editor. Press F1 for help in the program.
@@ -22,3 +22,4 @@ options:
                         name of font (2048 bytes)
 
 Example: ./petpet.py -p gfx.json -c config.json -f font.bin
+

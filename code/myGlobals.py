@@ -14,7 +14,7 @@ def _global_constants():
         return None
 
 PROGNAME = 'PetPet';
-VERSION = '1.01 REVISION PARTY 2025';
+VERSION = '1.00 REVISION PARTY 2025';
 LAST_EDITED = '19.04.2025';
     
 GFX_DRAW = resource_path('resources/icon_draw.xbm')
