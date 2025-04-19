@@ -62,7 +62,7 @@ Python3</td>
 </tbody>
 </table>
 <h1 id="commandline-options">Commandline options</h1>
-<pre><code>PetPet v1.00 [12.04.2025] *** by fieserWolF
+<pre><code>PetPet v1.01 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
 usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
 
 This is a PETSCII editor. Press F1 for help in the program.
@@ -79,19 +79,34 @@ options:
 Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
 <h1 id="file-formats">File Formats</h1>
 <p>The PETSCII image is stored as a json file. It can be exported to a
-binary. This is the binary format:</p>
+binary.</p>
+<p>This is the binary format:</p>
 <ul>
 <li>1000 bytes characters</li>
 <li>1000 bytes colors</li>
-<li>1 byte background data</li>
+<li>1 byte background color</li>
+<li>1 byte border color</li>
 </ul>
-<h1 id="authors">Authors</h1>
+<p>This is the PETSCII-EDITOR binary format:</p>
+<ul>
+<li>$3000-$33e7 chars</li>
+<li>$33e8 border color</li>
+<li>$33e9 background color</li>
+<li>$33ea $d018 ($14 or $16)</li>
+<li>$3400-$37e7 colors</li>
+</ul>
+<h1 id="author">Author</h1>
 <ul>
 <li>fieserWolF/Abyss-Connection - <em>initial work</em> - <a
 href="https://github.com/fieserWolF">https://github.com/fieserWolF</a>
 <a
-href="https://csdb.dk/scener/?id=3623">https://csdb.dk/scener/?id=3623</a>
-# Getting Started</li>
+href="https://csdb.dk/scener/?id=3623">https://csdb.dk/scener/?id=3623</a></li>
+</ul>
+<h1 id="acknowledgements">Acknowledgements</h1>
+<ul>
+<li>Logiker for testing and feature ideas</li>
+<li>Mermaid for the still wonderful PETSCII entitled “Gary” # Getting
+Started</li>
 </ul>
 <h2 id="run-the-python3-script-directly">Run the Python3 script
 directly</h2>
@@ -119,9 +134,19 @@ help, please, contact me:</p>
 <p><a
 href="http://csdb.dk/scener/?id=3623">http://csdb.dk/scener/?id=3623</a>
 or <a href="wolf@abyss-connection.de">wolf@abyss-connection.de</a></p>
+<h2 id="changes-in-1.01-revision-party-2025">Changes in 1.01 REVISION
+PARTY 2025</h2>
+<ul>
+<li>first public release</li>
+<li>various bug-fixes and speed optimizations</li>
+<li>cut, copy and paste feature</li>
+<li>PETSCII-Editor import and export</li>
+<li>new chars layout</li>
+<li>added border</li>
+</ul>
 <h2 id="changes-in-1.0">Changes in 1.0</h2>
 <ul>
-<li>initial release # License</li>
+<li>initial private release for testing # License</li>
 </ul>
 <p><em>PetPet is a PETSCII editor for Commodore 64 computers.</em></p>
 <p><em>Copyright (C) 2025 fieserWolF / Abyss-Connection</em></p>

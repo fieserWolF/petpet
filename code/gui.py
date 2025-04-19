@@ -22,6 +22,13 @@ def open_petscii_bin():
     myGlobals.args.petscii_bin_filename = user_filename_open
     action.load_petscii_bin()
 
+def open_petscii_bin_petscii_editor():    
+    ftypes = [('PETSCII Editor', '*.prg')]
+    user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.petscii_bin_filename = user_filename_open
+    action.load_petscii_bin_petscii_editor()
+
 
 def save_as_petscii_json():    
     ftypes = [('Image Files', '*.json')]
@@ -37,6 +44,13 @@ def save_as_petscii_bin():
     if not user_filename_open : return None
     myGlobals.petscii_bin_filename = user_filename_open
     action.save_petscii_bin()
+
+def save_as_petscii_bin_petscii_editor():    
+    ftypes = [('PETSCII Editor', '*.prg')]
+    user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.petscii_bin_filename = user_filename_open
+    action.save_petscii_bin_petscii_editor()
 
 
 def quit_application():
@@ -64,6 +78,9 @@ def create_drop_down_menu (
     filemenu.add_command(label="import PETSCII binary", command=open_petscii_bin)
     filemenu.add_command(label="export PETSCII binary", command=save_as_petscii_bin, underline=0, accelerator="Alt+E")
     filemenu.add_separator()
+    filemenu.add_command(label="import PETSCII editor", command=open_petscii_bin_petscii_editor)
+    filemenu.add_command(label="export PETSCII editor", command=save_as_petscii_bin_petscii_editor)
+    filemenu.add_separator()
     filemenu.add_command(label="toggle grid", command=action.toggle_grid, underline=7, accelerator="Alt+G")
     filemenu.add_command(label="save config", command=action.save_config)
     filemenu.add_command(label="clear PETSCII", command=clear_image_ask_user)
@@ -79,32 +96,6 @@ def create_drop_down_menu (
 
 
 
-
-def create_timeline (
-	root,
-    _row,
-    _column
-) :    
-    frame_border = tk.Frame(
-        root,
-        bg=myGlobals.BGCOLOR,
-        bd=myGlobals.FRAME_BORDER,
-    )
-    frame_border.grid(
-        row=_row,
-        column=_column
-    )
- 
-    myGlobals.label_timeline_image = tk.Label(
-        frame_border,
-        bg=myGlobals.BGCOLOR,
-#        cursor=myGlobals.MOUSEPOINTER_NONE
-    )
-    myGlobals.label_timeline_image.grid(
-        row=0,
-        column=0,
-        sticky=tk.W+tk.E
-    )
 
 
 
@@ -125,13 +116,16 @@ def create_image_draw (
         column=_column
     )
 
-    myGlobals.canvas_draw = tk.Canvas(root, width=myGlobals.IMAGE_WIDTH*myGlobals.IMAGE_SCALE, height=myGlobals.IMAGE_HEIGHT*myGlobals.IMAGE_SCALE, background="#000000")
+    myGlobals.canvas_draw = tk.Canvas(root, width=myGlobals.FULL_SCREEN_WIDTH, height=myGlobals.FULL_SCREEN_HEIGHT, background="#000000")
 
     myGlobals.canvas_draw.delete("all")
+    #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_rectangle.html
+    myGlobals.canvas_draw.create_rectangle(0, 0, myGlobals.FULL_SCREEN_WIDTH, myGlobals.FULL_SCREEN_HEIGHT, fill='#000000', tags='border')
+    
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_image.html
-    myGlobals.canvas_draw.create_image(1, 1, image=myGlobals.my_photo_draw, anchor=tk.NW, tags='petscii_image')
+    myGlobals.canvas_draw.create_image(myGlobals.BORDER_WIDTH, myGlobals.BORDER_WIDTH, image=myGlobals.my_photo_draw, anchor=tk.NW, tags='petscii_image')
 
-    action.draw_petscii_image_grid()
+    action.create_draw_canvas_elements()
 
     myGlobals.canvas_draw.grid(
         row=0,
@@ -139,11 +133,11 @@ def create_image_draw (
         sticky=tk.W+tk.E
     )
     
-    myGlobals.canvas_draw.bind('<Motion>', action.mouseMotion_draw)
-    myGlobals.canvas_draw.bind('<Button-1>', action.mouseButton1_draw)
-    myGlobals.canvas_draw.bind('<B1-Motion>', action.mouseButton1_move_draw)
-    #myGlobals.canvas_draw.bind('<Button>', action.mouseButton1_draw)
-    #myGlobals.canvas_draw.bind('<Button-3>', mouseButton3_draw)
+    myGlobals.canvas_draw.bind('<Motion>', action.mouse_draw_Motion)
+    myGlobals.canvas_draw.bind('<Button-1>', action.mouse_draw_Button1)
+    myGlobals.canvas_draw.bind('<B1-Motion>', action.mouse_draw_Button1Motion)
+    #myGlobals.canvas_draw.bind('<Button>', action.mouse_draw_Button1)
+    myGlobals.canvas_draw.bind('<Button-3>', action.mouse_draw_Button3)
 
 
 
@@ -165,9 +159,11 @@ def create_image_chars (
     
     myGlobals.canvas_chars = tk.Canvas(frame_border, width=myGlobals.CHARS_IMAGE_WIDTH*myGlobals.IMAGE_SCALE, height=myGlobals.CHARS_IMAGE_HEIGHT*myGlobals.IMAGE_SCALE, background="#000000")
 
-    myGlobals.canvas_chars.delete("all")
+    #myGlobals.canvas_chars.delete("all")
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_image.html
-    myGlobals.canvas_chars.create_image(1, 1, image=myGlobals.my_photo_chars, anchor=tk.NW, tags='my_chars')
+    #myGlobals.canvas_chars.create_image(1, 1, image=myGlobals.my_photo_chars, anchor=tk.NW, tags='my_chars')
+
+    action.create_chars_canvas_elements()
 
     myGlobals.canvas_chars.grid(
         row=0,
@@ -176,7 +172,7 @@ def create_image_chars (
     )
     
     #myGlobals.canvas_chars.bind('<Motion>', action.mouseMotion_charpicker)
-    myGlobals.canvas_chars.bind('<Button-1>', action.mouseButton1_charpicker)
+    myGlobals.canvas_chars.bind('<Button-1>', action.mouse_charpicker_Button1)
     #myGlobals.canvas_chars.bind('<Button-3>', mouseButton3_chars)
 
 
@@ -217,6 +213,7 @@ def create_toolbox (
             ('brush', myGlobals.GFX_BRUSH, 0, 1,0, action.brush),
             ('pencil', myGlobals.GFX_PENCIL, 0, 2,0, action.pencil),
             ('bg', myGlobals.GFX_BG, 0, 3,0, action.change_bg),
+            ('border', myGlobals.GFX_BORDER, 0, 4,0, action.change_border),
     ]
     
     for text, my_image, my_underline, my_row, my_column, my_command in MODES:
@@ -234,6 +231,7 @@ def create_toolbox (
         if (text == 'brush') : myGlobals.button_brush = my_button
         if (text == 'pencil') : myGlobals.button_pencil = my_button
         if (text == 'bg') : myGlobals.button_bg = my_button
+        if (text == 'border') : myGlobals.button_border = my_button
 
         myGlobals.button_pen.configure(relief=tk.SUNKEN)
 
@@ -275,7 +273,8 @@ def create_infobox (
 		frame_inner,
         bg=myGlobals.BGCOLOR2,
 		text = my_text,
-        bd=1
+        bd=1,
+        fg="#000000"
 	)
 
     label_content = tk.Label(
@@ -284,6 +283,7 @@ def create_infobox (
 		textvariable = my_textvariable,
         bd=1,
         width=my_width,
+        fg="#000000"
 	)
 
 

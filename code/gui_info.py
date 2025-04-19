@@ -11,8 +11,13 @@ def show_info_window (
         '<Alt-q>: quit\n' \
         '<Alt-o>: open PETSCII (json)\n' \
         '<Alt-s>: save PETSCII (json)\n' \
+        '<Ctl-s>: save PETSCII (json)\n' \
         '<Alt-e>: export PETSCII (bin)\n' \
         '<Alt-g>: toggle grid\n' \
+        '<Ctl-z>: undo\n' \
+        '<Ctl-x>: cut\n' \
+        '<Ctl-c>: copy\n' \
+        '<Ctl-v>: paste\n' \
         '\n' \
         'export binary format\n' \
         '------------\n' \

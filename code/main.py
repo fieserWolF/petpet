@@ -10,8 +10,6 @@ import argparse
 
 
 
-
-
 def _main_procedure() :
     #writes args
     
@@ -38,6 +36,7 @@ def _main_procedure() :
     else :
         myGlobals.args.petscii_filename = 'image.json'
         myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
+        action.clear_image()
 
 
     
@@ -65,12 +64,11 @@ def _main_procedure() :
         2,  #row
         0   #column
     )
-    
 
     action.draw_charset_image()
     action.refresh_chars_image()
-    action.draw_petscii_image()
-    action.refresh_draw_image()
+    action.draw_petscii_image_full()
+    action.refresh_draw_image(draw_border=True)
     
 
            
@@ -78,14 +76,14 @@ def _main_procedure() :
     myGlobals.root.bind_all('<F1>', lambda event: gui_info.show_info_window())
     myGlobals.root.bind_all('<Alt-o>', lambda event: gui.open_petscii_json())
     myGlobals.root.bind_all('<Alt-s>', lambda event: action.save_petscii_json())
+    myGlobals.root.bind_all('<Control-s>', lambda event: action.save_petscii_json())
     myGlobals.root.bind_all('<Alt-e>', lambda event: gui.save_as_petscii_bin())
     myGlobals.root.bind_all('<Alt-g>', lambda event: action.toggle_grid())
+    myGlobals.root.bind_all('<Control-z>', lambda event: action.undo_restore())
+    myGlobals.root.bind_all('<Control-c>', lambda event: action.copy())
+    myGlobals.root.bind_all('<Control-v>', lambda event: action.paste())
+    myGlobals.root.bind_all('<Control-x>', lambda event: action.cut())
 
     myGlobals.root.protocol('WM_DELETE_WINDOW', gui.quit_application)
-
-    #action.refresh_draw_image()
-    #action.refresh_chars_image()
-
+   
     tk.mainloop()
-
-    #t1.join()   #kill thread
