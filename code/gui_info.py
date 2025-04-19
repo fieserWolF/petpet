@@ -19,11 +19,33 @@ def show_info_window (
         '<Ctl-c>: copy\n' \
         '<Ctl-v>: paste\n' \
         '\n' \
-        'export binary format\n' \
-        '------------\n' \
+        'binary format\n' \
+        '-------------\n' \
         '1000 bytes characters\n' \
         '1000 bytes colors\n' \
         '1 byte background color\n' \
+        '\n' \
+        'PETSCII-Editor binary format\n' \
+        '----------------------------\n' \
+        '$3000-$33e7 chars\n' \
+        '$33e8 border color\n' \
+        '$33e9 bg color\n' \
+        '$33ea $d018 ($14 or $16)\n' \
+        '$3400-$37e7 colors\n' \
+        '\n' \
+        'Author\n' \
+        '------\n' \
+        'fieserWolF/Abyss-Connection\n' \
+        '\n' \
+        'contact me here:\n' \
+        'https://github.com/fieserWolF\n' \
+        'https://csdb.dk/scener/?id=3623\n' \
+        '\n' \
+        'Acknowledgements\n' \
+        '----------------\n' \
+        'thanks to Logiker for testing and feature ideas\n' \
+        '\n' \
+        'thanks to Mermaid for the still wonderful PETSCII entitled "Gary"\n' \
         '\n' \
     
     
