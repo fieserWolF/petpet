@@ -109,8 +109,6 @@ def create_drop_down_menu (
     editmenu.add_command(label="cut", command=action.cut, accelerator="Ctrl+x")
     editmenu.add_separator()
     editmenu.add_command(label="clear PETSCII", command=clear_image_ask_user)
-    editmenu.add_separator()
-    editmenu.add_command(label="toggle grid", command=action.toggle_grid, underline=7, accelerator="Alt+g")
 
     infomenu.add_command(label="help", command=gui_info.show_info_window, underline=0, accelerator="f1")
 
@@ -239,8 +237,10 @@ def create_toolbox (
             ('pen', myGlobals.GFX_DRAW, 0, 0,0, action.draw),
             ('brush', myGlobals.GFX_BRUSH, 0, 1,0, action.brush),
             ('pencil', myGlobals.GFX_PENCIL, 0, 2,0, action.pencil),
-            ('bg', myGlobals.GFX_BG, 0, 3,0, action.change_bg),
-            ('border', myGlobals.GFX_BORDER, 0, 4,0, action.change_border),
+            ('writemode', myGlobals.GFX_WRITEMODE, 0, 3,0, action.writemode),
+            ('bg', myGlobals.GFX_BG, 0, 4,0, action.change_bg),
+            ('border', myGlobals.GFX_BORDER, 0, 5,0, action.change_border),
+            ('grid', myGlobals.GFX_GRID, 0, 6,0, action.toggle_grid),
     ]
     
     for text, my_image, my_underline, my_row, my_column, my_command in MODES:
@@ -259,6 +259,8 @@ def create_toolbox (
         if (text == 'pencil') : myGlobals.button_pencil = my_button
         if (text == 'bg') : myGlobals.button_bg = my_button
         if (text == 'border') : myGlobals.button_border = my_button
+        if (text == 'writemode') : myGlobals.button_writemode = my_button
+        if (text == 'grid') : myGlobals.button_grid = my_button
 
         myGlobals.button_pen.configure(relief=tk.SUNKEN)
 
@@ -545,7 +547,7 @@ def create_bottom (
         1,  #column
         'info:',    #text
         myGlobals.textvariable_info,   #textvariable
-        30   #text width
+        50   #text width
     )
 
 

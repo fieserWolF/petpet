@@ -22,6 +22,8 @@ GFX_BRUSH = resource_path('resources/icon_colorize.xbm')
 GFX_PENCIL = resource_path('resources/icon_brush.xbm')
 GFX_BG = resource_path('resources/icon_bg.xbm')
 GFX_BORDER = resource_path('resources/icon_border.xbm')
+GFX_GRID = resource_path('resources/icon_grid.xbm')
+GFX_WRITEMODE = resource_path('resources/icon_writemode.xbm')
 
 CHARROM_UPPERCASE = resource_path('resources/charrom_uppercase.bin')
 CHARROM_LOWERCASE = resource_path('resources/charrom_lowercase.bin')
@@ -60,6 +62,74 @@ FRAME_BORDER = 4
 MOUSEPOINTER_HAND = 'hand2'
 MOUSEPOINTER_NORMAL = 'tcross'
 MOUSEPOINTER_NONE = 'X_cursor'
+
+#https://sta.c64.org/cbm64scr.html
+C64_SCREENCODES = {
+        '@' : 0,
+        'a' : 1,
+        'b' : 2,
+        'c' : 3,
+        'd' : 4,
+        'e' : 5,
+        'f' : 6,
+        'g' : 7,
+        'h' : 8,
+        'i' : 9,
+        'j' : 10,
+        'k' : 11,
+        'l' : 12,
+        'm' : 13,
+        'n' : 14,
+        'o' : 15,
+        'p' : 16,
+        'q' : 17,
+        'r' : 18,
+        's' : 19,
+        't' : 20,
+        'u' : 21,
+        'v' : 22,
+        'w' : 23,
+        'x' : 24,
+        'y' : 25,
+        'z' : 26,
+        '[' : 27,
+        ']' : 29,
+        ' ' : 32,
+        '!' : 33,
+        '"' : 34,
+        '#' : 35,
+        '$' : 36,
+        '%' : 37,
+        '&' : 38,
+        "'" : 39,
+        '(' : 40,
+        ')' : 41,
+        '*' : 42,
+        '+' : 43,
+        ',' : 44,
+        '-' : 45,
+        '.' : 46,
+        '/' : 47,
+        '0' : 48,
+        '1' : 49,
+        '2' : 50,
+        '3' : 51,
+        '4' : 52,
+        '5' : 53,
+        '6' : 54,
+        '7' : 55,
+        '8' : 56,
+        '9' : 57,
+        ':' : 58,
+        ';' : 59,
+        '<' : 60,
+        '=' : 61,
+        '>' : 62,
+        '?' : 63,
+}
+
+
+
 
 #global variables
 def _global_variables():
@@ -144,3 +214,5 @@ button_brush = tk.Button()
 button_pencil = tk.Button()
 button_bg = tk.Button()
 button_border = tk.Button()
+button_writemode = tk.Button()
+button_grid = tk.Button()

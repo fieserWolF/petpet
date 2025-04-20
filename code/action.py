@@ -390,6 +390,8 @@ def change_bg(
     myGlobals.button_pencil.configure(relief=tk.RAISED)
     myGlobals.button_bg.configure(relief=tk.SUNKEN)
     myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 def change_border(
@@ -400,6 +402,8 @@ def change_border(
     myGlobals.button_pencil.configure(relief=tk.RAISED)
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.SUNKEN)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
     
 def draw(
@@ -410,6 +414,8 @@ def draw(
     myGlobals.button_pencil.configure(relief=tk.RAISED)
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 
@@ -423,6 +429,19 @@ def toggle_grid(
     refresh_draw_image()
 
 
+def writemode(
+):
+    myGlobals.mode = 'writemode'
+    myGlobals.button_pen.configure(relief=tk.RAISED)
+    myGlobals.button_brush.configure(relief=tk.RAISED)
+    myGlobals.button_pencil.configure(relief=tk.RAISED)
+    myGlobals.button_bg.configure(relief=tk.RAISED)
+    myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.SUNKEN)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
+    update_info()
+
+
 def brush(
 ):
     myGlobals.mode = 'brush'
@@ -431,6 +450,8 @@ def brush(
     myGlobals.button_pencil.configure(relief=tk.RAISED)
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 def pencil(
@@ -441,6 +462,8 @@ def pencil(
     myGlobals.button_pencil.configure(relief=tk.SUNKEN)
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 
@@ -521,6 +544,26 @@ def undo_restore():
     myGlobals.undo_busy = False
     
 
+def userwrite_letter(
+    letter
+):
+    if (myGlobals.mode == 'writemode') :
+        myGlobals.selected_char = myGlobals.C64_SCREENCODES[letter]
+
+        myGlobals.last_drawn_posx = myGlobals.mouse_posx
+        myGlobals.last_drawn_posy = myGlobals.mouse_posy
+        
+        undo_store()
+        myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.selected_char
+        myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
+        draw_petscii_image_single(
+            myGlobals.mouse_posx,   #x
+            myGlobals.mouse_posy,   #y
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],    #char
+            myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
+        )
+        refresh_draw_image()
+        
 
 def cut():
     myGlobals.box_visible = False
@@ -820,11 +863,14 @@ def load_charset(
 def update_info():
     myGlobals.textvariable_mode.set('%s' % myGlobals.mode)
 
-    myGlobals.textvariable_info.set('pos %02d/%02d $%02x/$%02x | char %03d $%02x' % (
+    myGlobals.textvariable_info.set('pos %02d/%02d $%02x/$%02x | char %03d $%02x (%02d/%02d %03d)' % (
         myGlobals.mouse_posx, myGlobals.mouse_posy,
         myGlobals.mouse_posx, myGlobals.mouse_posy,
         myGlobals.selected_char,
-        myGlobals.selected_char
+        myGlobals.selected_char,
+        myGlobals.charpicker_grid_posx,
+        myGlobals.charpicker_grid_posy,
+        myGlobals.charpicker_grid_posy * myGlobals.CHARPICKER_LAYOUT_HEIGHT + myGlobals.charpicker_grid_posx
     ))
 
 
@@ -854,7 +900,7 @@ def mouse_draw_Button1(event):
     myGlobals.last_drawn_posx = myGlobals.mouse_posx
     myGlobals.last_drawn_posy = myGlobals.mouse_posy
     
-    if (myGlobals.textvariable_mode.get() == 'draw') :
+    if (myGlobals.mode == 'draw') :
         undo_store()
         myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.selected_char
         myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
@@ -865,7 +911,7 @@ def mouse_draw_Button1(event):
             myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
         )
         refresh_draw_image()
-    if (myGlobals.textvariable_mode.get() == 'pencil') :
+    if (myGlobals.mode == 'pencil') :
         undo_store()
         myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.selected_char
         draw_petscii_image_single(
@@ -875,7 +921,7 @@ def mouse_draw_Button1(event):
             myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
         )
         refresh_draw_image()
-    if (myGlobals.textvariable_mode.get() == 'brush') :
+    if (myGlobals.mode == 'brush') :
         undo_store()
         myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
         draw_petscii_image_single(
@@ -949,8 +995,8 @@ def mouse_charpicker_Button1(event):
     myGlobals.charpicker_grid_posy = int(event.y/myGlobals.IMAGE_SCALE/8)
 
     #print('selecting char at position %d/%d.'%(tmp_posx, tmp_posy))
-    myGlobals.selected_char = myGlobals.charpicker_grid_posy * myGlobals.CHARPICKER_LAYOUT_WIDTH + myGlobals.charpicker_grid_posx
-    myGlobals.selected_char = myGlobals.chars_layout[myGlobals.selected_char]
+    pos = myGlobals.charpicker_grid_posy * myGlobals.CHARPICKER_LAYOUT_WIDTH + myGlobals.charpicker_grid_posx
+    myGlobals.selected_char = myGlobals.chars_layout[pos]
     
     #draw_charset_image()
     update_info()
