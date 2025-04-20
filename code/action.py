@@ -832,8 +832,6 @@ def mouse_draw_Button3(event):
         myGlobals.box_visible = True
     else :
         myGlobals.box_draw_start = True
-        myGlobals.box_end_x = myGlobals.mouse_posx+1
-        myGlobals.box_end_y = myGlobals.mouse_posy+1
         myGlobals.box_visible = True
     refresh_draw_image()    
     
@@ -923,6 +921,13 @@ def mouse_draw_Motion(event):
         myGlobals.last_posx = myGlobals.mouse_posx
         myGlobals.last_posy = myGlobals.mouse_posy
         update_info()
+
+    #selection box
+    if (myGlobals.box_draw_start == False) :
+        myGlobals.box_end_x = myGlobals.mouse_posx+1
+        myGlobals.box_end_y = myGlobals.mouse_posy+1
+        refresh_draw_image()    
+
 
         
 
