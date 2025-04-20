@@ -130,6 +130,8 @@ or
 ## Changes in 1.01
 
 * improved selection box
+* added write-mode
+* gui improvements
 
 
 ## Changes in 1.0
