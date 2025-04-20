@@ -77,121 +77,144 @@ options:
                         name of font (2048 bytes)
 
 Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
-<h1 id="usage">Usage</h1>
-<h2 id="main-control">main control</h2>
-<table>
-<thead>
-<tr class="header">
-<th>shotcut</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Alt-o</td>
-<td>open PETSCII (json)</td>
-</tr>
-<tr class="even">
-<td>Alt-s</td>
-<td>save PETSCII (json)</td>
-</tr>
-<tr class="odd">
-<td>Ctl-s</td>
-<td>save PETSCII (json)</td>
-</tr>
-<tr class="even">
-<td>Alt-e</td>
-<td>export PETSCII (bin)</td>
-</tr>
-<tr class="odd">
-<td>Alt-g</td>
-<td>toggle grid</td>
-</tr>
-<tr class="even">
-<td>Ctl-z</td>
-<td>undo</td>
-</tr>
-<tr class="odd">
-<td>Ctl-x</td>
-<td>cut</td>
-</tr>
-<tr class="even">
-<td>Ctl-c</td>
-<td>copy</td>
-</tr>
-<tr class="odd">
-<td>Ctl-v</td>
-<td>paste</td>
-</tr>
-<tr class="even">
-<td>Alt-q</td>
-<td>quit</td>
-</tr>
-</tbody>
-</table>
-<h2 id="mouse-control">mouse control</h2>
-<table>
-<thead>
-<tr class="header">
-<th>mousebutton</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>left-mousebutton</td>
-<td>draw</td>
-</tr>
-<tr class="even">
-<td>right-mousebutton</td>
-<td>select a rectangle for cut and copy.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="draw-modes">draw modes</h2>
-<table>
-<thead>
-<tr class="header">
-<th>mode</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>draw</td>
-<td>set character and color</td>
-</tr>
-<tr class="even">
-<td>brush</td>
-<td>set color only</td>
-</tr>
-<tr class="odd">
-<td>pencil</td>
-<td>set character only</td>
-</tr>
-</tbody>
-</table>
-<p>Note: When setting the backround (<span
-class="math inline"><em>d</em>021)<em>a</em><em>n</em><em>d</em><em>b</em><em>o</em><em>r</em><em>d</em><em>e</em><em>r</em>(</span>d020)
-color, select a color and then click into the petscii image.</p>
 <h1 id="file-formats">File Formats</h1>
-<p>The PETSCII image is stored as a json file. It can be exported to a
-binary.</p>
-<p>This is the binary format:</p>
-<ul>
-<li>1000 bytes characters</li>
-<li>1000 bytes colors</li>
-<li>1 byte background color</li>
-<li>1 byte border color</li>
-</ul>
-<p>This is the PETSCII-EDITOR binary format:</p>
-<ul>
-<li>$3000-$33e7 chars</li>
-<li>$33e8 border color</li>
-<li>$33e9 background color</li>
-<li>$33ea $d018 ($14 or $16)</li>
-<li>$3400-$37e7 colors</li>
-</ul>
+<p>The PETSCII image is natively stored as a json file. There is also a
+binary import and export.</p>
+<h2 id="petpet-json-format">PetPet JSON format</h2>
+<table>
+<thead>
+<tr class="header">
+<th>object</th>
+<th>key</th>
+<th>type</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>info</td>
+<td>program</td>
+<td>string</td>
+<td>“PetPet”</td>
+</tr>
+<tr class="even">
+<td>info</td>
+<td>version</td>
+<td>string</td>
+<td>e.g. “1.0”</td>
+</tr>
+<tr class="odd">
+<td>settings</td>
+<td>background</td>
+<td>number</td>
+<td>color 0-15</td>
+</tr>
+<tr class="even">
+<td>settings</td>
+<td>border</td>
+<td>number</td>
+<td>color 0-15</td>
+</tr>
+<tr class="odd">
+<td>settings</td>
+<td>font</td>
+<td>string</td>
+<td>filename of font</td>
+</tr>
+<tr class="even">
+<td>settings</td>
+<td>grid</td>
+<td>boolean</td>
+<td>True or False</td>
+</tr>
+<tr class="odd">
+<td>-</td>
+<td>char</td>
+<td>array of 1000 numbers</td>
+<td>characters (0-255)</td>
+</tr>
+<tr class="even">
+<td>-</td>
+<td>color</td>
+<td>array of 1000 numbers</td>
+<td>colors (0-15)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="binary-format">binary format</h2>
+<table>
+<thead>
+<tr class="header">
+<th>offset</th>
+<th>size in bytes</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1000</td>
+<td>characters</td>
+</tr>
+<tr class="even">
+<td>1000</td>
+<td>1000</td>
+<td>colors</td>
+</tr>
+<tr class="odd">
+<td>1001</td>
+<td>1</td>
+<td>background color</td>
+</tr>
+<tr class="even">
+<td>1002</td>
+<td>1</td>
+<td>border color</td>
+</tr>
+</tbody>
+</table>
+<h2 id="petscii-editor-binary-format">PETSCII-EDITOR binary format</h2>
+<table>
+<thead>
+<tr class="header">
+<th>offset</th>
+<th>size in bytes</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>2</td>
+<td>start address $3000 (low, high)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1000</td>
+<td>characters</td>
+</tr>
+<tr class="odd">
+<td>1002</td>
+<td>1</td>
+<td>border color</td>
+</tr>
+<tr class="even">
+<td>1003</td>
+<td>1</td>
+<td>background color</td>
+</tr>
+<tr class="odd">
+<td>1004</td>
+<td>1</td>
+<td>$d018 value ($14 or $16)</td>
+</tr>
+<tr class="even">
+<td>1029</td>
+<td>1000</td>
+<td>colors</td>
+</tr>
+</tbody>
+</table>
 <h1 id="author">Author</h1>
 <ul>
 <li>fieserWolF/Abyss-Connection - <em>initial work</em> - <a
@@ -231,6 +254,10 @@ help, please, contact me:</p>
 <p><a
 href="http://csdb.dk/scener/?id=3623">http://csdb.dk/scener/?id=3623</a>
 or <a href="wolf@abyss-connection.de">wolf@abyss-connection.de</a></p>
+<h2 id="changes-in-1.01">Changes in 1.01</h2>
+<ul>
+<li>improved selection box</li>
+</ul>
 <h2 id="changes-in-1.0">Changes in 1.0</h2>
 <p>released on REVISION PARTY 2025</p>
 <ul>

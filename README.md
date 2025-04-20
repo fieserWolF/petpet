@@ -35,65 +35,44 @@ portable | available on Linux, MacOS, Windows and any other system supported by 
 
 
 
-# Usage
-
-## main control
-
-
-shotcut | description
----|---
-Alt-o | open PETSCII (json)
-Alt-s | save PETSCII (json)
-Ctl-s | save PETSCII (json)
-Alt-e | export PETSCII (bin)
-Alt-g | toggle grid
-Ctl-z | undo
-Ctl-x | cut
-Ctl-c | copy
-Ctl-v | paste
-Alt-q | quit
-
-
-## mouse control
-
-mousebutton | description
----|---
-left-mousebutton | draw
-right-mousebutton | select a rectangle for cut and copy.
-
-
-## draw modes
-
-mode | description
----|---
-draw | set character and color
-brush | set color only
-pencil | set character only
-
-Note:
-When setting the backround ($d021) and border ($d020) color, select a color and then click into the petscii image.
-
-
-
 # File Formats
 
-The PETSCII image is stored as a json file. It can be exported to a binary.
+The PETSCII image is natively stored as a json file. There is also a binary import and export.
 
-This is the binary format:
+## PetPet JSON format
 
-* 1000 bytes characters
-* 1000 bytes colors
-* 1 byte background color
-* 1 byte border color
+object | key | type | value
+---|---|---|---
+info | program | string | "PetPet"
+info | version | string | e.g. "1.0"
+settings | background | number | color 0-15
+settings | border | number | color 0-15
+settings | font | string | filename of font
+settings | grid | boolean | True or False
+- | char | array of 1000 numbers | characters (0-255)
+- | color | array of 1000 numbers | colors (0-15)
 
 
-This is the PETSCII-EDITOR binary format:
+## binary format
 
-* $3000-$33e7 chars
-* $33e8 border color
-* $33e9 background color
-* $33ea $d018 ($14 or $16)
-* $3400-$37e7 colors
+offset | size in bytes | value
+---|---|---
+0 | 1000 | characters
+1000 | 1000 | colors
+1001 | 1 | background color
+1002 | 1 | border color
+
+
+## PETSCII-EDITOR binary format
+
+offset | size in bytes | value
+---|---|---
+0 | 2 | start address $3000 (low, high)
+2 | 1000 | characters
+1002 | 1 | border color
+1003 | 1 | background color
+1004 | 1 | $d018 value ($14 or $16)
+1029 | 1000 | colors
 
 
 
@@ -146,6 +125,11 @@ If you have a feature request, a bug report or if you want to offer help, please
 or
 [wolf@abyss-connection.de](wolf@abyss-connection.de)
 
+
+
+## Changes in 1.01
+
+* improved selection box
 
 
 ## Changes in 1.0
