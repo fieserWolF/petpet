@@ -77,7 +77,7 @@ def _main_procedure() :
     myGlobals.root.bind_all('<Alt-o>', lambda event: gui.open_petscii_json())
     myGlobals.root.bind_all('<Alt-s>', lambda event: action.save_petscii_json())
     myGlobals.root.bind_all('<Control-s>', lambda event: action.save_petscii_json())
-    myGlobals.root.bind_all('<Alt-e>', lambda event: gui.save_as_petscii_bin())
+    myGlobals.root.bind_all('<Alt-S>', lambda event: gui.save_as_petscii_json())
     myGlobals.root.bind_all('<Alt-g>', lambda event: action.toggle_grid())
     myGlobals.root.bind_all('<Control-z>', lambda event: action.undo_restore())
     myGlobals.root.bind_all('<Control-c>', lambda event: action.copy())

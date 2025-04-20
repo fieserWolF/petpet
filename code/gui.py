@@ -15,6 +15,14 @@ def open_petscii_json():
     action.load_petscii_json()
 
 
+def open_font():    
+    ftypes = [('Font Files', '*')]
+    user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.font_filename = user_filename_open
+    action.load_charset()
+
+
 def open_petscii_bin():    
     ftypes = [('Image Files', '*.bin'),('Image Files', '*.pet'),('Image Files', '*.prg')]
     user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
@@ -54,7 +62,13 @@ def save_as_petscii_bin_petscii_editor():
 
 
 def quit_application():
-    if tk.messagebox.askokcancel("Quit", "Do you want to quit?"): myGlobals.root.quit()
+    if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
+
+        if (myGlobals.image_is_saved == False) :
+            if tk.messagebox.askokcancel("Save", "Do you want to save?"):
+                save_as_petscii_json()
+
+        myGlobals.root.quit()
 
 
 
@@ -69,29 +83,41 @@ def create_drop_down_menu (
     root.config(menu=menu)
 
     filemenu = tk.Menu(menu)
+    editmenu = tk.Menu(menu)
     infomenu = tk.Menu(menu)
 
     filemenu.add_command(label="open PETSCII", command=open_petscii_json, underline=0, accelerator="Alt+O")
     filemenu.add_command(label="save PETSCII", command=action.save_petscii_json, underline=0, accelerator="Alt+S")
-    filemenu.add_command(label="save PETSCII as...", command=save_as_petscii_json)
+    filemenu.add_command(label="save PETSCII as...", command=save_as_petscii_json, accelerator="Alt+Shift+S")
     filemenu.add_separator()
     filemenu.add_command(label="import PETSCII binary", command=open_petscii_bin)
-    filemenu.add_command(label="export PETSCII binary", command=save_as_petscii_bin, underline=0, accelerator="Alt+E")
+    filemenu.add_command(label="export PETSCII binary", command=save_as_petscii_bin)
     filemenu.add_separator()
     filemenu.add_command(label="import PETSCII editor", command=open_petscii_bin_petscii_editor)
     filemenu.add_command(label="export PETSCII editor", command=save_as_petscii_bin_petscii_editor)
     filemenu.add_separator()
-    filemenu.add_command(label="toggle grid", command=action.toggle_grid, underline=7, accelerator="Alt+G")
+    filemenu.add_command(label="open font", command=open_font)
+    filemenu.add_separator()
     filemenu.add_command(label="save config", command=action.save_config)
-    filemenu.add_command(label="clear PETSCII", command=clear_image_ask_user)
     filemenu.add_separator()
     filemenu.add_command(label="quit", command=quit_application, underline=0, accelerator="Alt+Q")
+
+    editmenu.add_command(label="undo", command=action.undo_restore, accelerator="Ctrl+z")
+    editmenu.add_separator()
+    editmenu.add_command(label="copy", command=action.copy, accelerator="Ctrl+c")
+    editmenu.add_command(label="paste", command=action.paste, accelerator="Ctrl+v")
+    editmenu.add_command(label="cut", command=action.cut, accelerator="Ctrl+x")
+    editmenu.add_separator()
+    editmenu.add_command(label="clear PETSCII", command=clear_image_ask_user)
+    editmenu.add_separator()
+    editmenu.add_command(label="toggle grid", command=action.toggle_grid, underline=7, accelerator="Alt+g")
 
     infomenu.add_command(label="help", command=gui_info.show_info_window, underline=0, accelerator="f1")
 
     #add all menus
-    menu.add_cascade(label="file", menu=filemenu)
-    menu.add_cascade(label="info", menu=infomenu)
+    menu.add_cascade(label="file", menu=filemenu, underline=0, accelerator="Alt+f")
+    menu.add_cascade(label="edit", menu=editmenu, underline=0, accelerator="Alt+e")
+    menu.add_cascade(label="info", menu=infomenu, underline=0, accelerator="Alt+i")
 
 
 
@@ -137,7 +163,8 @@ def create_image_draw (
     myGlobals.canvas_draw.bind('<Button-1>', action.mouse_draw_Button1)
     myGlobals.canvas_draw.bind('<B1-Motion>', action.mouse_draw_Button1Motion)
     #myGlobals.canvas_draw.bind('<Button>', action.mouse_draw_Button1)
-    myGlobals.canvas_draw.bind('<Button-3>', action.mouse_draw_Button3)
+    myGlobals.canvas_draw.bind('<ButtonPress-3>', action.mouse_draw_Button3)
+    myGlobals.canvas_draw.bind('<ButtonRelease-3>', action.mouse_draw_Release3)
 
 
 

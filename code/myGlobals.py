@@ -73,7 +73,9 @@ args = None
 
 mousepointer_image = MOUSEPOINTER_NORMAL
 
-box_draw_start  = True
+image_is_saved  = True
+
+box_selecting  = False
 box_visible = False
 box_start_x = 0
 box_start_y = 0

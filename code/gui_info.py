@@ -11,13 +11,13 @@ def show_info_window (
         '<Alt-q>: quit\n' \
         '<Alt-o>: open PETSCII (json)\n' \
         '<Alt-s>: save PETSCII (json)\n' \
-        '<Ctl-s>: save PETSCII (json)\n' \
-        '<Alt-e>: export PETSCII (bin)\n' \
+        '<Ctrl-s>: save PETSCII (json)\n' \
+        '<Alt-Shift-s>: save PETSCII (json) as\n' \
         '<Alt-g>: toggle grid\n' \
-        '<Ctl-z>: undo\n' \
-        '<Ctl-x>: cut\n' \
-        '<Ctl-c>: copy\n' \
-        '<Ctl-v>: paste\n' \
+        '<Ctrl-z>: undo\n' \
+        '<Ctrl-x>: cut\n' \
+        '<Ctrl-c>: copy\n' \
+        '<Ctrl-v>: paste\n' \
         '\n' \
         'binary format\n' \
         '-------------\n' \
@@ -53,15 +53,7 @@ def show_info_window (
     TEXT_WIDTH=40
 
     def close_window():
-        global info_window
-        global info_window_open
-        
-        if (info_window_open == True) :
-            info_window.destroy()
-            info_window_open = False
-
-    def close_window_key(self):
-        close_window()
+        info_window.destroy()
 
     def keyboard_up(event):
         msg.yview_scroll(-1,'units')
@@ -74,6 +66,9 @@ def show_info_window (
 
     def keyboard_pagedown(event):
         msg.yview_scroll(TEXT_HEIGHT*-1,'units')
+
+    def keyboard_quit(event):
+        info_window.destroy()
 
 
     
@@ -156,5 +151,8 @@ def show_info_window (
     info_window.bind('<Down>', keyboard_down) 
     info_window.bind('<Next>', keyboard_pageup) 
     info_window.bind('<Prior>', keyboard_pagedown) 
+    info_window.bind('<Escape>', keyboard_quit) 
+    info_window.bind('<Control-q>', keyboard_quit) 
+    info_window.bind('<Alt-q>', keyboard_quit) 
 
 

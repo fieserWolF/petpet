@@ -174,6 +174,7 @@ def save_petscii_json() :
         my_data
     )
     myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
+    myGlobals.image_is_saved = True
 
 
 def write_json(
@@ -300,7 +301,7 @@ def draw_petscii_image_single(x,y,char,color) :
             myGlobals.PETSCII_image_data[pos_dst+2] = my_data[pos_src][2]
 
     myGlobals.my_photo_draw = convert_to_photo_image(PANEL_WIDTH, PANEL_HEIGHT, myGlobals.PETSCII_image_data)
-    
+    myGlobals.image_is_saved = False    
 
     
 def draw_petscii_image_full() :
@@ -449,6 +450,7 @@ def clear_image():
     myGlobals.data_bg = myGlobals.INIT_BG
     myGlobals.data_border = myGlobals.INIT_BORDER
     myGlobals.user_drawcolor.set(1)
+    myGlobals.image_is_saved  = True
     draw_petscii_image_full()
     refresh_draw_image(draw_border=True)
 
@@ -528,6 +530,7 @@ def cut():
         for x in range(0,myGlobals.box_width) :
             myGlobals.data_char[dst+x] = myGlobals.INIT_CHAR
             myGlobals.data_color[dst+x] = myGlobals.INIT_COLOR
+    myGlobals.image_is_saved  = False
     draw_petscii_image_full()
     refresh_draw_image()
 
@@ -558,6 +561,7 @@ def paste():
             myGlobals.data_char[dst+x] = myGlobals.box_char[y][x]
             myGlobals.data_color[dst+x] = myGlobals.box_color[y][x]
 
+    myGlobals.image_is_saved  = False
     draw_petscii_image_full()
     refresh_draw_image()
     
@@ -806,6 +810,9 @@ def load_charset(
     draw_charset_image()
     refresh_chars_image()
 
+    draw_petscii_image_full()
+    refresh_draw_image()
+
 
 
    
@@ -822,17 +829,16 @@ def update_info():
 
 
 
+def mouse_draw_Release3(event):
+    myGlobals.box_selecting = False
+
 def mouse_draw_Button3(event):
-    if (myGlobals.box_draw_start) :
-        myGlobals.box_draw_start = False
-        myGlobals.box_start_x = myGlobals.mouse_posx
-        myGlobals.box_start_y = myGlobals.mouse_posy
-        myGlobals.box_end_x = myGlobals.box_start_x
-        myGlobals.box_end_y = myGlobals.box_start_y
-        myGlobals.box_visible = True
-    else :
-        myGlobals.box_draw_start = True
-        myGlobals.box_visible = True
+    myGlobals.box_selecting = True
+    myGlobals.box_start_x = myGlobals.mouse_posx
+    myGlobals.box_start_y = myGlobals.mouse_posy
+    myGlobals.box_end_x = myGlobals.box_start_x
+    myGlobals.box_end_y = myGlobals.box_start_y
+    myGlobals.box_visible = True
     refresh_draw_image()    
     
 
@@ -881,10 +887,12 @@ def mouse_draw_Button1(event):
         refresh_draw_image()
     if (myGlobals.textvariable_mode.get() == 'set bg') :
         myGlobals.data_bg = myGlobals.user_drawcolor.get()
+        myGlobals.image_is_saved = False
         draw_petscii_image_full()
         refresh_draw_image()
     if (myGlobals.textvariable_mode.get() == 'set border') :
         myGlobals.data_border = myGlobals.user_drawcolor.get()
+        myGlobals.image_is_saved = False
         draw_petscii_image_full()
         refresh_draw_image(draw_border=True)
 
@@ -923,7 +931,7 @@ def mouse_draw_Motion(event):
         update_info()
 
     #selection box
-    if (myGlobals.box_draw_start == False) :
+    if (myGlobals.box_selecting) :
         myGlobals.box_end_x = myGlobals.mouse_posx+1
         myGlobals.box_end_y = myGlobals.mouse_posy+1
         refresh_draw_image()    
