@@ -49,8 +49,8 @@ settings | background | number | color 0-15
 settings | border | number | color 0-15
 settings | font | string | filename of font
 settings | grid | boolean | True or False
-- | char | array of 1000 numbers | characters (0-255)
-- | color | array of 1000 numbers | colors (0-15)
+. | char | array of 1000 numbers | characters (0-255)
+. | color | array of 1000 numbers | colors (0-15)
 
 
 ## binary format
