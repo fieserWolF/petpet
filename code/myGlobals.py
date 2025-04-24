@@ -15,7 +15,7 @@ def _global_constants():
 
 PROGNAME = 'PetPet';
 VERSION = '1.01';
-LAST_EDITED = '20.04.2025';
+LAST_EDITED = '24.04.2025';
     
 GFX_DRAW = resource_path('resources/icon_draw.xbm')
 GFX_BRUSH = resource_path('resources/icon_colorize.xbm')
