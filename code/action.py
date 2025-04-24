@@ -408,7 +408,7 @@ def change_border(
     
 def draw(
 ):
-    myGlobals.mode = 'draw'
+    myGlobals.mode = 'pen'
     myGlobals.button_pen.configure(relief=tk.SUNKEN)
     myGlobals.button_brush.configure(relief=tk.RAISED)
     myGlobals.button_pencil.configure(relief=tk.RAISED)
@@ -764,6 +764,20 @@ def save_petscii_bin():
     save_some_data(myGlobals.petscii_bin_filename, tmp)
     #myGlobals.textvariable_filename.set(myGlobals.petscii_bin_filename)
 
+def save_executable(filename):
+    tmp = []
+    for i in myGlobals.viewer_data :
+        tmp.append(i & 0b11111111)
+    for i in myGlobals.data_char :
+        tmp.append(i & 0b11111111)
+    for i in myGlobals.data_color :
+        tmp.append(i & 0b11111111)
+    tmp.append(myGlobals.data_bg & 0b11111111)
+    tmp.append(myGlobals.data_border & 0b11111111)
+    tmp.append(0)   # default: normal uppercase font
+    save_some_data(filename, tmp)
+
+
 def save_petscii_bin_petscii_editor():
     """
     PETSCII-Editor Format
@@ -900,7 +914,7 @@ def mouse_draw_Button1(event):
     myGlobals.last_drawn_posx = myGlobals.mouse_posx
     myGlobals.last_drawn_posy = myGlobals.mouse_posy
     
-    if (myGlobals.mode == 'draw') :
+    if (myGlobals.mode == 'pen') :
         undo_store()
         myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.selected_char
         myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()

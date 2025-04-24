@@ -29,9 +29,9 @@
 <h1 class="title">petpet</h1>
 </header>
 <h1 id="petpet">PetPet</h1>
-<p>PetPet is a PETSCII editor for Commodore 64 computers. It runs on 64
-bit versions of Linux, MacOS, Windows and other systems supported by
-Python.</p>
+<p>PetPet is a PETSCII editor for Commodore 64 computers. As it is
+writen entirely in Python, it runs on any platform supported by Python
+(Windows, MacOS, Linux and others).</p>
 <figure>
 <img src="./screenshot.png" alt="screenshot" />
 <figcaption aria-hidden="true">screenshot</figcaption>
@@ -50,9 +50,8 @@ Python.</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td>open source</td>
-<td>easy to modify and to improve, any useful contribution is highly
-welcome</td>
+<td>script</td>
+<td>no compiling, easy to modify import and export to your needs</td>
 </tr>
 <tr class="even">
 <td>portable</td>
@@ -61,6 +60,65 @@ Python3</td>
 </tr>
 </tbody>
 </table>
+<h1 id="using-petpet">Using PetPet</h1>
+<h2 id="drawing-modes">drawing modes</h2>
+<p>Use left mouse-button to draw. These are the drawing modes:</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>mode</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>pen</td>
+<td>draw characters and colors</td>
+</tr>
+<tr class="even">
+<td>brush</td>
+<td>draw only colors</td>
+</tr>
+<tr class="odd">
+<td>pencil</td>
+<td>draw only characters</td>
+</tr>
+<tr class="even">
+<td>writemode</td>
+<td>type characters on your keyboard directly at mouse position</td>
+</tr>
+<tr class="odd">
+<td>set bg</td>
+<td>choose a color, then click into the picture to change the background
+color ($d021)</td>
+</tr>
+<tr class="even">
+<td>set border</td>
+<td>choose a color, then click into the picture to change the border
+color ($d020)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cut-copy-and-paste">cut, copy and paste</h2>
+<p>Use right mouse-button to select an area. Then, use the usual hotkeys
+(STRG+X, STRG+C, STRG+V) to cut, copy and paste.</p>
+<h2 id="how-to-change-the-layout">How to change the layout</h2>
+<p>You can change the layout of the available characters in your own
+configuration-file. In this JSON file you can edit the “layout”
+array.</p>
+<p>Example layouts:</p>
+<figure>
+<img src="./layout1.png" alt="layout1" />
+<figcaption aria-hidden="true">layout1</figcaption>
+</figure>
+<figure>
+<img src="./layout2.png" alt="layout2" />
+<figcaption aria-hidden="true">layout2</figcaption>
+</figure>
 <h1 id="commandline-options">Commandline options</h1>
 <pre><code>PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
 usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
@@ -215,6 +273,75 @@ binary import and export.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="petpet-json-configuration-format">PetPet JSON configuration
+format</h2>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>object</th>
+<th>key</th>
+<th>type</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>info</td>
+<td>program</td>
+<td>string</td>
+<td>“PetPet”</td>
+</tr>
+<tr class="even">
+<td>info</td>
+<td>version</td>
+<td>string</td>
+<td>e.g. “1.0”</td>
+</tr>
+<tr class="odd">
+<td>settings</td>
+<td>background</td>
+<td>number</td>
+<td>color 0-15</td>
+</tr>
+<tr class="even">
+<td>settings</td>
+<td>border</td>
+<td>number</td>
+<td>color 0-15</td>
+</tr>
+<tr class="odd">
+<td>settings</td>
+<td>font</td>
+<td>string</td>
+<td>filename of font</td>
+</tr>
+<tr class="even">
+<td>settings</td>
+<td>grid</td>
+<td>boolean</td>
+<td>True or False</td>
+</tr>
+<tr class="odd">
+<td>.</td>
+<td>palette</td>
+<td>array of 16*3 numbers</td>
+<td>red, green, blue value for each C64 color (default: PEPTO colors)
+(0-255)</td>
+</tr>
+<tr class="even">
+<td>.</td>
+<td>layout</td>
+<td>array of 256 numbers</td>
+<td>characters (0-255)</td>
+</tr>
+</tbody>
+</table>
 <h1 id="author">Author</h1>
 <ul>
 <li>fieserWolF/Abyss-Connection - <em>initial work</em> - <a
@@ -228,10 +355,7 @@ href="https://csdb.dk/scener/?id=3623">https://csdb.dk/scener/?id=3623</a></li>
 <li>Mermaid for the still wonderful PETSCII entitled “Gary” # Getting
 Started</li>
 </ul>
-<h2 id="run-the-python3-script-directly">Run the Python3 script
-directly</h2>
-<p>Download <em>petpet.py</em> and the whole <em>code</em> and
-<em>resource</em> - directory into the same folder on your computer.</p>
+<h2 id="install-python">Install Python</h2>
 <h3 id="prerequisites">Prerequisites</h3>
 <p>At least this is needed to run the script directly:</p>
 <ul>
@@ -240,13 +364,27 @@ directly</h2>
 <li>python json module</li>
 <li>python “argparse” library</li>
 </ul>
-<p>Normally, you would use pip like this:</p>
-<pre><code>pip3 install tk argparse json</code></pre>
+<h3 id="install-python-on-linux">Install Python on Linux</h3>
 <p>On my Debian GNU/Linux machine I use apt-get to install everything
 needed:</p>
 <pre><code>apt update
 apt install python3 python3-tk</code></pre>
-<h1 id="changelog">Changelog</h1>
+<p>Alternatively, you can use pip to install missing modules:</p>
+<pre><code>pip3 install tk argparse json</code></pre>
+<h3 id="install-python-on-windows-or-mac">Install Python on Windows or
+Mac</h3>
+<ul>
+<li>Download Python from <a
+href="https://www.python.org">https://www.python.org</a>.</li>
+<li>Install Python on your computer.</li>
+</ul>
+<h2 id="download-petpet">Download PetPet</h2>
+<ul>
+<li>Go to <a
+href="https://github.com/fieserWolF/petpet">https://github.com/fieserWolF/petpet</a>.</li>
+<li>Click on the green “Code” button and “Download ZIP”</li>
+<li>Extract the downloaded ZIP-file to any folder. # Changelog</li>
+</ul>
 <h2 id="future-plans">Future plans</h2>
 <p>Any help and support in any form is highly appreciated.</p>
 <p>If you have a feature request, a bug report or if you want to offer
@@ -259,6 +397,8 @@ or <a href="wolf@abyss-connection.de">wolf@abyss-connection.de</a></p>
 <li>improved selection box</li>
 <li>added write-mode</li>
 <li>gui improvements</li>
+<li>export to C64 executable</li>
+<li>improved documentation</li>
 </ul>
 <h2 id="changes-in-1.0">Changes in 1.0</h2>
 <p>released on REVISION PARTY 2025</p>

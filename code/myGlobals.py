@@ -128,6 +128,14 @@ C64_SCREENCODES = {
         '?' : 63,
 }
 
+# written by bin2pythonarray 1.00 [29.12.2024] *** by fieserWolF
+viewer_data = (
+    1,8,11,8,10,0,158,50,48,54,52,0,0,0,0,0,0,162,0,189,95,
+    8,157,0,4,189,95,9,157,0,5,189,95,10,157,0,6,189,71,11,157,232,
+    6,189,71,12,157,0,216,189,71,13,157,0,217,189,71,14,157,0,218,189,47,
+    15,157,232,218,202,208,205,173,48,16,141,32,208,173,47,16,141,33,208,174,49,
+    16,189,93,8,141,24,208,76,87,8,20,22,
+)
 
 
 
@@ -199,7 +207,7 @@ PETSCII_image_data = []
 PETSCII_image_data_old = []
 #char_render_data = [0] * IMAGE_SCALE*8 * IMAGE_SCALE*8
 
-mode='draw'
+mode='pen'
 
 user_drawcolor = tk.IntVar()
 user_drawcolor.set(INIT_COLOR)

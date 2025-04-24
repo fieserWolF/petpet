@@ -1,7 +1,7 @@
 # PetPet
 
 PetPet is a PETSCII editor for Commodore 64 computers.
-It runs on 64 bit versions of Linux, MacOS, Windows and other systems supported by Python. 
+As it is writen entirely in Python, it runs on any platform supported by Python (Windows, MacOS, Linux and others).
 
 ![screenshot](./screenshot.png)
 
@@ -10,9 +10,40 @@ It runs on 64 bit versions of Linux, MacOS, Windows and other systems supported 
 
 reason | description
 ---|---
-open source | easy to modify and to improve, any useful contribution is highly welcome
+script | no compiling, easy to modify import and export to your needs
 portable | available on Linux, MacOS, Windows and any other system supported by Python3
 
+# Using PetPet
+
+## drawing modes
+
+Use left mouse-button to draw. These are the drawing modes:
+
+mode | description
+---|---
+pen | draw characters and colors
+brush | draw only colors
+pencil | draw only characters
+writemode | type characters on your keyboard directly at mouse position
+set bg | choose a color, then click into the picture to change the background color (\$d021)
+set border | choose a color, then click into the picture to change the border color (\$d020)
+
+
+## cut, copy and paste
+
+Use right mouse-button to select an area. Then, use the usual hotkeys (STRG+X, STRG+C, STRG+V) to cut, copy and paste.
+
+
+## How to change the layout
+
+You can change the layout of the available characters in your own configuration-file.
+In this JSON file you can edit the "layout" array.
+
+Example layouts:
+
+![layout1](./layout1.png)
+
+![layout2](./layout2.png)
 
 
 # Commandline options
@@ -75,6 +106,20 @@ offset | size in bytes | value
 1029 | 1000 | colors
 
 
+## PetPet JSON configuration format
+
+object | key | type | value
+---|---|---|---
+info | program | string | "PetPet"
+info | version | string | e.g. "1.0"
+settings | background | number | color 0-15
+settings | border | number | color 0-15
+settings | font | string | filename of font
+settings | grid | boolean | True or False
+. | palette | array of 16*3 numbers | red, green, blue value for each C64 color (default: PEPTO colors) (0-255)
+. | layout | array of 256 numbers | characters (0-255)
+
+
 
 # Author
 
@@ -86,9 +131,7 @@ offset | size in bytes | value
 * Mermaid for the still wonderful PETSCII entitled "Gary"
 # Getting Started
 
-## Run the Python3 script directly
-
-Download _petpet.py_ and the whole _code_ and _resource_ - directory into the same folder on your computer.
+## Install Python
 
 ### Prerequisites
 
@@ -100,10 +143,7 @@ At least this is needed to run the script directly:
 - python "argparse" library
 
 
-Normally, you would use pip like this:
-```
-pip3 install tk argparse json
-```
+### Install Python on Linux
 
 On my Debian GNU/Linux machine I use apt-get to install everything needed:
 ```
@@ -111,7 +151,23 @@ apt update
 apt install python3 python3-tk
 ```
 
+Alternatively, you can use pip to install missing modules:
+```
+pip3 install tk argparse json
+```
 
+
+### Install Python on Windows or Mac
+
+* Download Python from [https://www.python.org](https://www.python.org).
+* Install Python on your computer.
+
+
+## Download PetPet
+
+* Go to [https://github.com/fieserWolF/petpet](https://github.com/fieserWolF/petpet).
+* Click on the green "Code" button and "Download ZIP"
+* Extract the downloaded ZIP-file to any folder.
 # Changelog
 
 ## Future plans
@@ -132,6 +188,8 @@ or
 * improved selection box
 * added write-mode
 * gui improvements
+* export to C64 executable
+* improved documentation
 
 
 ## Changes in 1.0

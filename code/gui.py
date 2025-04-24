@@ -60,6 +60,13 @@ def save_as_petscii_bin_petscii_editor():
     myGlobals.petscii_bin_filename = user_filename_open
     action.save_petscii_bin_petscii_editor()
 
+def save_as_executable():    
+    ftypes = [('C64', '*.prg')]
+    user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    #myGlobals.petscii_bin_filename = user_filename_open
+    action.save_executable(user_filename_open)
+
 
 def quit_application():
     if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -95,6 +102,8 @@ def create_drop_down_menu (
     filemenu.add_separator()
     filemenu.add_command(label="import PETSCII editor", command=open_petscii_bin_petscii_editor)
     filemenu.add_command(label="export PETSCII editor", command=save_as_petscii_bin_petscii_editor)
+    filemenu.add_separator()
+    filemenu.add_command(label="export C64 executable", command=save_as_executable)
     filemenu.add_separator()
     filemenu.add_command(label="open font", command=open_font)
     filemenu.add_separator()
