@@ -1,7 +1,7 @@
 # PetPet
 
 PetPet is a PETSCII editor for Commodore 64 computers.
-As it is writen entirely in Python, it runs on any platform supported by Python (Windows, MacOS, Linux and others).
+As it is written entirely in Python, it runs on any platform supported by Python (Windows, MacOS, Linux and others).
 
 ![screenshot](./screenshot.png)
 
