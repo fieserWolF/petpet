@@ -145,7 +145,7 @@ offset | size in bytes | value
 1002 | 1 | border color
 1003 | 1 | background color
 1004 | 1 | $d018 value ($14 or $16)
-1029 | 1000 | colors
+1026 | 1000 | colors
 
 
 ## PetPet JSON configuration format
