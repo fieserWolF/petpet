@@ -5,7 +5,6 @@ As it is written entirely in Python, it runs on any platform supported by Python
 
 ![screenshot](./screenshot.png)
 
-
 # Why PetPet?
 
 reason | description
@@ -13,37 +12,14 @@ reason | description
 script | no compiling, easy to modify import and export to your needs
 portable | available on Linux, MacOS, Windows and any other system supported by Python3
 
-# Using PetPet
+# Author
 
-## drawing modes
+* fieserWolF/Abyss-Connection - *initial work* - [https://github.com/fieserWolF](https://github.com/fieserWolF) [https://csdb.dk/scener/?id=3623](https://csdb.dk/scener/?id=3623)
 
-Use left mouse-button to draw. These are the drawing modes:
+# Acknowledgements
 
-mode | description
----|---
-pen | draw characters and colors
-brush | draw only colors
-pencil | draw only characters
-writemode | type characters on your keyboard directly at mouse position
-set bg | choose a color, then click into the picture to change the background color (\$d021)
-set border | choose a color, then click into the picture to change the border color (\$d020)
-
-
-## cut, copy and paste
-
-Use right mouse-button to select an area. Then, use the usual hotkeys (STRG+X, STRG+C, STRG+V) to cut, copy and paste.
-
-
-## How to change the layout
-
-You can change the layout of the available characters in your own configuration-file.
-In this JSON file you can edit the "layout" array.
-
-Example layouts:
-
-![layout1](./layout1.png)
-
-![layout2](./layout2.png)
+* Logiker for testing and feature ideas
+* Mermaid for the still wonderful PETSCII entitled "Gary"
 
 
 # Commandline options
@@ -64,6 +40,72 @@ Example layouts:
 
 	Example: ./petpet.py -p gfx.json -c config.json -f font.bin
 
+# Using PetPet
+
+## drawing modes
+
+Use left mouse-button to draw. These are the drawing modes:
+
+mode | description
+---|---
+pen | draw characters and colors
+brush | draw only colors
+pencil | draw only characters
+writemode | type characters on your keyboard directly at mouse position
+set bg | choose a color, then click into the picture to change the background color (\$d021)
+set border | choose a color, then click into the picture to change the border color (\$d020)
+
+## cut, copy and paste
+
+Use right mouse-button to select an area. Then, use the usual hotkeys (STRG+X, STRG+C, STRG+V) to cut, copy and paste.
+
+## How to change the layout
+
+You can change the layout of the available characters in your own configuration-file.
+In this JSON file you can edit the "layout" array.
+
+Example layouts:
+
+![layout1](./layout1.png)
+
+![layout2](./layout2.png)
+
+
+# Getting Started
+
+## Install Python
+
+### Prerequisites
+
+Python3 is needed to run PetPet. Everything else needed should be provided in your Python3 installation by default:
+
+- json
+- tkinter
+- argparse
+
+### Install Python on Windows or Mac
+
+* Download Python from [https://www.python.org](https://www.python.org).
+* Install Python on your computer.
+
+### Install Python on Linux
+
+On my Debian GNU/Linux machine I use apt to install everything needed:
+```
+apt update
+apt install python3 python3-tk
+```
+
+Alternatively, you can use pip to install missing modules:
+```
+pip3 install tk argparse json
+```
+
+## Download PetPet
+
+* Go to [https://github.com/fieserWolF/petpet](https://github.com/fieserWolF/petpet).
+* Click on the green "Code" button and "Download ZIP".
+* Extract the downloaded ZIP-file to any folder.
 
 
 # File Formats
@@ -120,54 +162,6 @@ settings | grid | boolean | True or False
 . | layout | array of 256 numbers | characters (0-255)
 
 
-
-# Author
-
-* fieserWolF/Abyss-Connection - *initial work* - [https://github.com/fieserWolF](https://github.com/fieserWolF) [https://csdb.dk/scener/?id=3623](https://csdb.dk/scener/?id=3623)
-
-# Acknowledgements
-
-* Logiker for testing and feature ideas
-* Mermaid for the still wonderful PETSCII entitled "Gary"
-# Getting Started
-
-## Install Python
-
-### Prerequisites
-
-At least this is needed to run the script directly:
-
-- python 3
-- python tkinter module
-- python json module
-- python "argparse" library
-
-
-### Install Python on Linux
-
-On my Debian GNU/Linux machine I use apt-get to install everything needed:
-```
-apt update
-apt install python3 python3-tk
-```
-
-Alternatively, you can use pip to install missing modules:
-```
-pip3 install tk argparse json
-```
-
-
-### Install Python on Windows or Mac
-
-* Download Python from [https://www.python.org](https://www.python.org).
-* Install Python on your computer.
-
-
-## Download PetPet
-
-* Go to [https://github.com/fieserWolF/petpet](https://github.com/fieserWolF/petpet).
-* Click on the green "Code" button and "Download ZIP"
-* Extract the downloaded ZIP-file to any folder.
 # Changelog
 
 ## Future plans
