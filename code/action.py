@@ -356,13 +356,17 @@ def draw_charset_image() :
     PANEL_HEIGHT=myGlobals.CHARPICKER_LAYOUT_HEIGHT*CHAR_HEIGHT
 
     #clear bg
-    my_bytes = [255,100,100] * PANEL_HEIGHT * PANEL_WIDTH
+    my_bytes = [0,0,0] * PANEL_HEIGHT * PANEL_WIDTH
 
     #draw charset
     char_number=0
     for y in range(0,myGlobals.CHARPICKER_LAYOUT_HEIGHT) :
         for x in range(0,myGlobals.CHARPICKER_LAYOUT_WIDTH) :
-            my_data = draw_charset_image_single(myGlobals.chars_layout[char_number],1,0)
+            my_data = draw_charset_image_single(
+				myGlobals.chars_layout[char_number],
+				myGlobals.user_drawcolor.get(),
+				myGlobals.data_bg
+			)
 
             pos = (y*CHAR_HEIGHT*PANEL_WIDTH) + x*CHAR_WIDTH
 
@@ -483,11 +487,25 @@ def undo_store():
     data_pos = myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx
     
     #exit if not needed:
-    if (
-        (myGlobals.data_char[data_pos] == myGlobals.selected_char) &
-        (myGlobals.data_color[data_pos] == myGlobals.user_drawcolor.get())
-    ) :
-        return None
+    if (myGlobals.mode == 'pen') :
+        if (
+            (myGlobals.data_char[data_pos] == myGlobals.selected_char) &
+            (myGlobals.data_color[data_pos] == myGlobals.user_drawcolor.get())
+        ) :
+            #print('action.undo_store(): store not needed')
+            return None
+    if (myGlobals.mode == 'brush') :
+        if (
+            (myGlobals.data_color[data_pos] == myGlobals.user_drawcolor.get())
+        ) :
+            #print('action.undo_store(): store not needed')
+            return None
+    if (myGlobals.mode == 'pencil') :
+        if (
+            (myGlobals.data_char[data_pos] == myGlobals.selected_char)
+        ) :
+            #print('action.undo_store(): store not needed')
+            return None
     
     myGlobals.undo_posx.append(myGlobals.mouse_posx)
     myGlobals.undo_posy.append(myGlobals.mouse_posy)
@@ -704,7 +722,7 @@ def refresh_draw_image(draw_border = False):
 
 def refresh_chars_image():
     myGlobals.canvas_chars.itemconfigure('my_chars', image=myGlobals.my_photo_chars)
-    
+
     posx = myGlobals.charpicker_grid_posx*8*myGlobals.IMAGE_SCALE
     posy = myGlobals.charpicker_grid_posy*8*myGlobals.IMAGE_SCALE
     myGlobals.canvas_chars.coords(
@@ -903,14 +921,15 @@ def mouse_draw_Button3(event):
     
 
 def mouse_draw_Button1(event):
-    """
+
     #a new position?
     if (
         (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
         (myGlobals.last_drawn_posy == myGlobals.mouse_posy)
     ) :
+        #print('action.mouse_draw_Button1(event): old position, skipped.')
         return None
-    """
+
     myGlobals.last_drawn_posx = myGlobals.mouse_posx
     myGlobals.last_drawn_posy = myGlobals.mouse_posy
     
@@ -1002,8 +1021,13 @@ def mouse_draw_Motion(event):
 def mouse_draw_Button1Motion(event):
     mouse_draw_Motion(event)
     mouse_draw_Button1(event)
-        
 
+
+def select_color():
+    draw_charset_image()
+    refresh_chars_image()
+	
+	
 def mouse_charpicker_Button1(event):
     myGlobals.charpicker_grid_posx = int(event.x/myGlobals.IMAGE_SCALE/8)
     myGlobals.charpicker_grid_posy = int(event.y/myGlobals.IMAGE_SCALE/8)
@@ -1015,4 +1039,5 @@ def mouse_charpicker_Button1(event):
     #draw_charset_image()
     update_info()
     refresh_chars_image()
+
     

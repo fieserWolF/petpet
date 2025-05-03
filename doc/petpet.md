@@ -177,6 +177,15 @@ or
 
 
 
+## Changes in 1.02
+
+(not released yet)
+ 
+* improved undo
+* character selection preview in selected color (thanks, Groepaz!)
+
+
+
 ## Changes in 1.01
 
 * improved selection box

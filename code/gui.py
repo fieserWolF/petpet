@@ -649,7 +649,7 @@ def create_colorpicker (
             bd=4,
             relief=tk.GROOVE,
             offrelief=tk.RAISED,
-            #command=action_debug
+            command=action.select_color
         )
         radiobutton_user_value.grid(
             row=2+my_row,
