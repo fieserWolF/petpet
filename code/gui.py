@@ -1,6 +1,7 @@
 import code.myGlobals as myGlobals
 import code.action as action
-import code.gui_info as gui_info
+import code.gui_help as gui_help
+import code.gui_about as gui_about
 import tkinter as tk
 #from tkinter.filedialog import askopenfilename, asksaveasfilename
 import tkinter.filedialog as filedialog
@@ -67,6 +68,13 @@ def save_as_executable():
     #myGlobals.petscii_bin_filename = user_filename_open
     action.save_executable(user_filename_open)
 
+def save_as_ppm():    
+    ftypes = [('image', '*.ppm')]
+    user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    #myGlobals.petscii_bin_filename = user_filename_open
+    action.save_ppm(user_filename_open)
+
 
 def quit_application():
     if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -104,9 +112,9 @@ def create_drop_down_menu (
     filemenu.add_command(label="export PETSCII editor", command=save_as_petscii_bin_petscii_editor)
     filemenu.add_separator()
     filemenu.add_command(label="export C64 executable", command=save_as_executable)
+    filemenu.add_command(label="export PPM image", command=save_as_ppm)
     filemenu.add_separator()
     filemenu.add_command(label="open font", command=open_font)
-    filemenu.add_separator()
     filemenu.add_command(label="save config", command=action.save_config)
     filemenu.add_separator()
     filemenu.add_command(label="quit", command=quit_application, underline=0, accelerator="Alt+Q")
@@ -119,7 +127,8 @@ def create_drop_down_menu (
     editmenu.add_separator()
     editmenu.add_command(label="clear PETSCII", command=clear_image_ask_user)
 
-    infomenu.add_command(label="help", command=gui_info.show_info_window, underline=0, accelerator="f1")
+    infomenu.add_command(label="help", command=gui_help.show_window, underline=0, accelerator="f1")
+    infomenu.add_command(label="about", command=gui_about.show_window)
 
     #add all menus
     menu.add_cascade(label="file", menu=filemenu, underline=0, accelerator="Alt+f")
@@ -243,13 +252,16 @@ def create_toolbox (
  
     
     MODES = [
-            ('pen', myGlobals.GFX_DRAW, 0, 0,0, action.draw),
-            ('brush', myGlobals.GFX_BRUSH, 0, 1,0, action.brush),
-            ('pencil', myGlobals.GFX_PENCIL, 0, 2,0, action.pencil),
-            ('writemode', myGlobals.GFX_WRITEMODE, 0, 3,0, action.writemode),
-            ('bg', myGlobals.GFX_BG, 0, 4,0, action.change_bg),
-            ('border', myGlobals.GFX_BORDER, 0, 5,0, action.change_border),
-            ('grid', myGlobals.GFX_GRID, 0, 6,0, action.toggle_grid),
+            ('pen', myGlobals.GFX_DRAW, 0, 0,0, action.select_draw),
+            ('brush', myGlobals.GFX_BRUSH, 0, 0,1, action.select_brush),
+            ('pencil', myGlobals.GFX_PENCIL, 0, 1,0, action.select_pencil),
+            ('grid', myGlobals.GFX_GRID, 0, 1,1, action.select_toggle_grid),
+            ('writemode', myGlobals.GFX_WRITEMODE, 0, 2,0, action.select_writemode),
+            ('writemode inverted', myGlobals.GFX_WRITEMODE_INVERTED, 0, 2,1, action.select_writemode_inverted),
+            ('4x4', myGlobals.GFX_4X4, 0, 3,0, action.select_4x4),
+            ('4x4 inverted', myGlobals.GFX_4X4_INVERTED, 0, 3,1, action.select_4x4_inverted),
+            ('bg', myGlobals.GFX_BG, 0, 4,0, action.select_change_bg),
+            ('border', myGlobals.GFX_BORDER, 0, 4,1, action.select_change_border),
     ]
     
     for text, my_image, my_underline, my_row, my_column, my_command in MODES:
@@ -269,6 +281,9 @@ def create_toolbox (
         if (text == 'bg') : myGlobals.button_bg = my_button
         if (text == 'border') : myGlobals.button_border = my_button
         if (text == 'writemode') : myGlobals.button_writemode = my_button
+        if (text == 'writemode inverted') : myGlobals.button_writemode_inverted = my_button
+        if (text == '4x4') : myGlobals.button_4x4 = my_button
+        if (text == '4x4 inverted') : myGlobals.button_4x4_inverted = my_button
         if (text == 'grid') : myGlobals.button_grid = my_button
 
         myGlobals.button_pen.configure(relief=tk.SUNKEN)

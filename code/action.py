@@ -201,6 +201,7 @@ def write_json(
 
 
 
+
 def convert_to_photo_image(
     my_width,
     my_height,
@@ -214,10 +215,11 @@ def convert_to_photo_image(
     #https://www.programiz.com/python-programming/methods/string/encode
     #https://www.programiz.com/python-programming/methods/built-in/bytearray
     #data = ('P6 '+str(my_width)+' '+str(my_height)+' 255 ').encode() +bytearray(my_data)
-    data = ('P6 '+str(my_width)+' '+str(my_height)+' 255 ').encode(encoding='UTF-8',errors='strict') + bytearray(my_data)
+    myGlobals.my_photo_draw_ppm = ('P6 '+str(my_width)+' '+str(my_height)+' 255 ').encode(encoding='UTF-8',errors='strict') + bytearray(my_data)
     #print(data)
 
-    return tk.PhotoImage(width=my_width, height=my_height, data=data, format='PPM')
+    return tk.PhotoImage(width=my_width, height=my_height, data=myGlobals.my_photo_draw_ppm, format='PPM')
+
 
 
 
@@ -386,7 +388,7 @@ def draw_charset_image() :
 
 
 
-def change_bg(
+def select_change_bg(
 ):
     myGlobals.mode = 'set bg'
     myGlobals.button_pen.configure(relief=tk.RAISED)
@@ -395,10 +397,13 @@ def change_bg(
     myGlobals.button_bg.configure(relief=tk.SUNKEN)
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
-def change_border(
+def select_change_border(
 ):
     myGlobals.mode = 'set border'
     myGlobals.button_pen.configure(relief=tk.RAISED)
@@ -407,10 +412,13 @@ def change_border(
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.SUNKEN)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
     
-def draw(
+def select_draw(
 ):
     myGlobals.mode = 'pen'
     myGlobals.button_pen.configure(relief=tk.SUNKEN)
@@ -419,11 +427,14 @@ def draw(
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 
-def toggle_grid(
+def select_toggle_grid(
 ):
     if (myGlobals.show_grid) :
         myGlobals.show_grid = False
@@ -433,7 +444,7 @@ def toggle_grid(
     refresh_draw_image()
 
 
-def writemode(
+def select_writemode(
 ):
     myGlobals.mode = 'writemode'
     myGlobals.button_pen.configure(relief=tk.RAISED)
@@ -442,11 +453,61 @@ def writemode(
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.SUNKEN)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
+    update_info()
+
+def select_writemode_inverted(
+):
+    myGlobals.mode = 'writemode inverted'
+    myGlobals.button_pen.configure(relief=tk.RAISED)
+    myGlobals.button_brush.configure(relief=tk.RAISED)
+    myGlobals.button_pencil.configure(relief=tk.RAISED)
+    myGlobals.button_bg.configure(relief=tk.RAISED)
+    myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.SUNKEN)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
 
-def brush(
+def select_4x4(
+):
+    myGlobals.mode = '4x4'
+    myGlobals.button_pen.configure(relief=tk.RAISED)
+    myGlobals.button_brush.configure(relief=tk.RAISED)
+    myGlobals.button_pencil.configure(relief=tk.RAISED)
+    myGlobals.button_bg.configure(relief=tk.RAISED)
+    myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.SUNKEN)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
+    update_info()
+
+
+def select_4x4_inverted(
+):
+    myGlobals.mode = '4x4 inverted'
+    myGlobals.button_pen.configure(relief=tk.RAISED)
+    myGlobals.button_brush.configure(relief=tk.RAISED)
+    myGlobals.button_pencil.configure(relief=tk.RAISED)
+    myGlobals.button_bg.configure(relief=tk.RAISED)
+    myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.SUNKEN)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
+    update_info()
+
+
+def select_brush(
 ):
     myGlobals.mode = 'brush'
     myGlobals.button_pen.configure(relief=tk.RAISED)
@@ -455,10 +516,13 @@ def brush(
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
-def pencil(
+def select_pencil(
 ):
     myGlobals.mode = 'pencil'
     myGlobals.button_pen.configure(relief=tk.RAISED)
@@ -467,6 +531,9 @@ def pencil(
     myGlobals.button_bg.configure(relief=tk.RAISED)
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
 
@@ -474,8 +541,8 @@ def pencil(
 def clear_image():
     myGlobals.data_char = [myGlobals.INIT_CHAR] * myGlobals.CHAR_HEIGHT * myGlobals.CHAR_WIDTH
     myGlobals.data_color = [myGlobals.INIT_COLOR] * myGlobals.CHAR_HEIGHT * myGlobals.CHAR_WIDTH
-    myGlobals.data_bg = myGlobals.INIT_BG
-    myGlobals.data_border = myGlobals.INIT_BORDER
+    #myGlobals.data_bg = myGlobals.INIT_BG
+    #myGlobals.data_border = myGlobals.INIT_BORDER
     myGlobals.user_drawcolor.set(1)
     myGlobals.image_is_saved  = True
     draw_petscii_image_full()
@@ -565,8 +632,14 @@ def undo_restore():
 def userwrite_letter(
     letter
 ):
-    if (myGlobals.mode == 'writemode') :
-        myGlobals.selected_char = myGlobals.C64_SCREENCODES[letter]
+    if (
+        (myGlobals.mode == 'writemode') |
+        (myGlobals.mode == 'writemode inverted')
+    ) :
+        if (myGlobals.mode == 'writemode') :
+            myGlobals.selected_char = myGlobals.C64_SCREENCODES[letter]
+        if (myGlobals.mode == 'writemode inverted') :
+            myGlobals.selected_char = myGlobals.C64_SCREENCODES[letter] | 0b10000000
 
         myGlobals.last_drawn_posx = myGlobals.mouse_posx
         myGlobals.last_drawn_posy = myGlobals.mouse_posy
@@ -795,6 +868,11 @@ def save_executable(filename):
     tmp.append(0)   # default: normal uppercase font
     save_some_data(filename, tmp)
 
+def save_ppm(filename):
+    #for i in myGlobals.my_photo_draw:
+    #    print (i,end=',')
+    save_some_data(filename, myGlobals.my_photo_draw_ppm)
+
 
 def save_petscii_bin_petscii_editor():
     """
@@ -895,14 +973,16 @@ def load_charset(
 def update_info():
     myGlobals.textvariable_mode.set('%s' % myGlobals.mode)
 
-    myGlobals.textvariable_info.set('pos %02d/%02d $%02x/$%02x | char %03d $%02x (%02d/%02d %03d)' % (
+    myGlobals.textvariable_info.set('pos %02d/%02d $%02x/$%02x | char %03d $%02x (%02d/%02d %03d) | 4x4 %d/%d' % (
         myGlobals.mouse_posx, myGlobals.mouse_posy,
         myGlobals.mouse_posx, myGlobals.mouse_posy,
         myGlobals.selected_char,
         myGlobals.selected_char,
         myGlobals.charpicker_grid_posx,
         myGlobals.charpicker_grid_posy,
-        myGlobals.charpicker_grid_posy * myGlobals.CHARPICKER_LAYOUT_HEIGHT + myGlobals.charpicker_grid_posx
+        myGlobals.charpicker_grid_posy * myGlobals.CHARPICKER_LAYOUT_HEIGHT + myGlobals.charpicker_grid_posx,
+        myGlobals.mouse_4x4_x,
+        myGlobals.mouse_4x4_y
     ))
 
 
@@ -918,20 +998,189 @@ def mouse_draw_Button3(event):
     myGlobals.box_end_y = myGlobals.box_start_y
     myGlobals.box_visible = True
     refresh_draw_image()    
+
+
+def find_char_4x4 (
+    posx,
+    posy,
+    old_char,
+    inverted
+) :
+    SCREENCODES_4X4 = [
+       #  0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15
+        126, 124, 123, 108, 226,  98,  97, 225, 127, 255, 236, 251, 254, 252, 160,  32
+    ]
     
+    MATCH_NORMAL = [0,1,2,3]
+    MATCH_INVERTED = [12,13,11,10]
+
+    LOGIC_TOP_LEFT = [
+        {'old':0, 'new':15, 'erase': True},
+        {'old':1, 'new':4, 'erase': False},
+        {'old':2, 'new':6, 'erase': False},
+        {'old':3, 'new':8, 'erase': False},
+        {'old':4, 'new':1, 'erase': True},
+        {'old':5, 'new':13, 'erase': False},
+        {'old':6, 'new':2, 'erase': True},    #erase
+        {'old':7, 'new':11, 'erase': False},
+        {'old':8, 'new':3, 'erase': True},
+        {'old':9, 'new':10, 'erase': False},
+        {'old':10, 'new':9, 'erase': True},
+        {'old':11, 'new':7, 'erase': True},
+        {'old':12, 'new':14, 'erase': False},
+        {'old':13, 'new':5, 'erase': True},
+        {'old':14, 'new':12, 'erase': True},
+    ]
+
+    LOGIC_TOP_RIGHT = [
+        {'old':0, 'new':4, 'erase': False},
+        {'old':1, 'new':15, 'erase': True},
+        {'old':2, 'new':9, 'erase': False},
+        {'old':3, 'new':7, 'erase': False},
+        {'old':4, 'new':0, 'erase': True},
+        {'old':5, 'new':12, 'erase': False},
+        {'old':6, 'new':10, 'erase': False},
+        {'old':7, 'new':3, 'erase': True},
+        {'old':8, 'new':11, 'erase': False},
+        {'old':9, 'new':2, 'erase': True},
+        {'old':10, 'new':6, 'erase': True},
+        {'old':11, 'new':8, 'erase': True},
+        {'old':12, 'new':5, 'erase': True},
+        {'old':13, 'new':14, 'erase': False},
+        {'old':14, 'new':13, 'erase': True},
+    ]
+
+    LOGIC_BOTTOM_LEFT = [
+        {'old':0, 'new':6, 'erase': False},
+        {'old':1, 'new':9, 'erase': False},
+        {'old':2, 'new':15, 'erase': True},
+        {'old':3, 'new':5, 'erase': False},
+        {'old':4, 'new':10, 'erase': False},
+        {'old':5, 'new':3, 'erase': True},
+        {'old':6, 'new':0, 'erase': True},
+        {'old':7, 'new':12, 'erase': False},
+        {'old':8, 'new':13, 'erase': False},
+        {'old':9, 'new':1, 'erase': True},
+        {'old':10, 'new':4, 'erase': True},
+        {'old':11, 'new':14, 'erase': False},
+        {'old':12, 'new':7, 'erase': True},
+        {'old':13, 'new':8, 'erase': True},
+        {'old':14, 'new':11, 'erase': True},
+    ]
+
+    LOGIC_BOTTOM_RIGHT = [
+        {'old':0, 'new':8, 'erase': False},
+        {'old':1, 'new':7, 'erase': False},
+        {'old':2, 'new':5, 'erase': False},
+        {'old':3, 'new':15, 'erase': True},
+        {'old':4, 'new':11, 'erase': False},
+        {'old':5, 'new':2, 'erase': True},
+        {'old':6, 'new':13, 'erase': False},
+        {'old':7, 'new':1, 'erase': True},
+        {'old':8, 'new':0, 'erase': True},
+        {'old':9, 'new':12, 'erase': False},
+        {'old':10, 'new':14, 'erase': False},
+        {'old':11, 'new':4, 'erase': True},
+        {'old':12, 'new':9, 'erase': True},
+        {'old':13, 'new':6, 'erase': True},
+        {'old':14, 'new':10, 'erase': True},
+    ]
+
+    if (inverted == True) :
+        MATCH = MATCH_INVERTED
+    else :
+        MATCH = MATCH_NORMAL
+
+    erase = False
+
+    #top left
+    if (
+        (posx == 0) &
+        (posy == 0)
+    ) :
+        char = SCREENCODES_4X4[MATCH[0]] #normal case
+        for i in LOGIC_TOP_LEFT:
+            if ( SCREENCODES_4X4[i['old']] == old_char ):
+                char = SCREENCODES_4X4[i['new']]
+                erase = i['erase']
+                break
+        return char,erase
+
+    #top right
+    if (
+        (posx == 1) &
+        (posy == 0)
+    ) :
+        char = SCREENCODES_4X4[MATCH[1]] #normal case
+        for i in LOGIC_TOP_RIGHT:
+            if ( SCREENCODES_4X4[i['old']] == old_char ):
+                char = SCREENCODES_4X4[i['new']]
+                erase = i['erase']
+                break
+        return char,erase
+
+    #bottom left
+    if (
+        (posx == 0) &
+        (posy == 1)
+    ) :
+        char = SCREENCODES_4X4[MATCH[2]] #normal case
+        for i in LOGIC_BOTTOM_LEFT:
+            if ( SCREENCODES_4X4[i['old']] == old_char ):
+                char = SCREENCODES_4X4[i['new']]
+                erase = i['erase']
+                break
+        return char,erase
+
+    #bottom right
+    if (
+        (posx == 1) &
+        (posy == 1)
+    ) :
+        char = SCREENCODES_4X4[MATCH[3]] #normal case
+        for i in LOGIC_BOTTOM_RIGHT:
+            if ( SCREENCODES_4X4[i['old']] == old_char ):
+                char = SCREENCODES_4X4[i['new']]
+                erase = i['erase']
+                break
+        return char,erase
+
+    #return char
+
+
 
 def mouse_draw_Button1(event):
 
     #a new position?
     if (
-        (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
-        (myGlobals.last_drawn_posy == myGlobals.mouse_posy)
+        (myGlobals.mode == 'pen') |
+        (myGlobals.mode == 'pencil') |
+        (myGlobals.mode == 'brush')
     ) :
-        #print('action.mouse_draw_Button1(event): old position, skipped.')
-        return None
+        if (
+            (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
+            (myGlobals.last_drawn_posy == myGlobals.mouse_posy)
+        ) :
+            #print('action.mouse_draw_Button1(event): old position, skipped.')
+            return None
+
+    if (
+        (myGlobals.mode == '4x4') |
+        (myGlobals.mode == '4x4 inverted')
+    ) :
+        if (
+            (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
+            (myGlobals.last_drawn_posy == myGlobals.mouse_posy) &
+            (myGlobals.last_mouse_4x4_x == myGlobals.mouse_4x4_x) &
+            (myGlobals.last_mouse_4x4_y == myGlobals.mouse_4x4_y)
+        ) :
+            #print('action.mouse_draw_Button1(event): old position, skipped.')
+            return None
 
     myGlobals.last_drawn_posx = myGlobals.mouse_posx
     myGlobals.last_drawn_posy = myGlobals.mouse_posy
+    myGlobals.last_mouse_4x4_x = myGlobals.mouse_4x4_x
+    myGlobals.last_mouse_4x4_y = myGlobals.mouse_4x4_y
     
     if (myGlobals.mode == 'pen') :
         undo_store()
@@ -974,22 +1223,65 @@ def mouse_draw_Button1(event):
         myGlobals.image_is_saved = False
         draw_petscii_image_full()
         refresh_draw_image(draw_border=True)
+    
+    if (myGlobals.mode == '4x4') :
+        undo_store()
+        
+        new_char, erase = find_char_4x4(
+            myGlobals.mouse_4x4_x,
+            myGlobals.mouse_4x4_y,
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],
+            False
+        )        
+        #if (erase) : return None
+
+        myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = new_char
+        myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
+        draw_petscii_image_single(
+            myGlobals.mouse_posx,   #x
+            myGlobals.mouse_posy,   #y
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],    #char
+            myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
+        )
+        refresh_draw_image()
+    
+    if (myGlobals.mode == '4x4 inverted') :
+        undo_store()
+        
+        new_char, erase = find_char_4x4(
+            myGlobals.mouse_4x4_x,
+            myGlobals.mouse_4x4_y,
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],
+            True
+        )
+        #if (erase) : return None
+
+        myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = new_char
+        myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
+        draw_petscii_image_single(
+            myGlobals.mouse_posx,   #x
+            myGlobals.mouse_posy,   #y
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],    #char
+            myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
+        )
+        refresh_draw_image()
 
 
 
 def mouse_draw_Motion(event):
     myGlobals.label_background_image.config(cursor = myGlobals.MOUSEPOINTER_NORMAL)
         
-    myGlobals.mouse_posx = int(
-        (
-            (event.x/myGlobals.IMAGE_SCALE)
-        )/8
-    )-myGlobals.BORDER_SIZE
-    myGlobals.mouse_posy = int(
-        (
-            (event.y/myGlobals.IMAGE_SCALE)
-        )/8
-    )-myGlobals.BORDER_SIZE
+    myGlobals.mouse_posx = int( (event.x/myGlobals.IMAGE_SCALE) /8)-myGlobals.BORDER_SIZE
+    myGlobals.mouse_posy = int( (event.y/myGlobals.IMAGE_SCALE) /8)-myGlobals.BORDER_SIZE
+
+    if (
+        (myGlobals.mode == '4x4') |
+        (myGlobals.mode == '4x4 inverted')
+    ) :
+        myGlobals.mouse_4x4_x = int((int(event.x/myGlobals.IMAGE_SCALE)-myGlobals.BORDER_SIZE*8)%8/4)
+        myGlobals.mouse_4x4_y = int((int(event.y/myGlobals.IMAGE_SCALE)-myGlobals.BORDER_SIZE*8)%8/4)
+        update_info()
+
     
     #clip offsets
     if (myGlobals.mouse_posx < 0) : myGlobals.mouse_posx = 0

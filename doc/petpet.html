@@ -72,23 +72,58 @@ href="https://csdb.dk/scener/?id=3623">https://csdb.dk/scener/?id=3623</a></li>
 <li>Logiker for testing and feature ideas</li>
 <li>Mermaid for the still wonderful PETSCII entitled “Gary”</li>
 </ul>
-<h1 id="commandline-options">Commandline options</h1>
-<pre><code>PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
-usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
-
-This is a PETSCII editor. Press F1 for help in the program.
-
-options:
-  -h, --help            show this help message and exit
-  -p, --petscii_file PETSCII_FILENAME
-                        petscii filename (.json)
-  -c, --config_file CONFIG_FILENAME
-                        name of configuration file (.json)
-  -f, --font_file FONT_FILENAME
-                        name of font (2048 bytes)
-
-Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
 <h1 id="using-petpet">Using PetPet</h1>
+<h2 id="shortcuts">shortcuts</h2>
+<table>
+<thead>
+<tr class="header">
+<th>key</th>
+<th>function</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Alt-q</td>
+<td>quit</td>
+</tr>
+<tr class="even">
+<td>Alt-o</td>
+<td>open PETSCII (json)</td>
+</tr>
+<tr class="odd">
+<td>Alt-s</td>
+<td>save PETSCII (json)</td>
+</tr>
+<tr class="even">
+<td>Ctrl-s</td>
+<td>save PETSCII (json)</td>
+</tr>
+<tr class="odd">
+<td>Alt-Shift-s</td>
+<td>save PETSCII (json) as</td>
+</tr>
+<tr class="even">
+<td>Alt-g</td>
+<td>toggle grid</td>
+</tr>
+<tr class="odd">
+<td>Ctrl-z</td>
+<td>undo</td>
+</tr>
+<tr class="even">
+<td>Ctrl-x</td>
+<td>cut</td>
+</tr>
+<tr class="odd">
+<td>Ctrl-c</td>
+<td>copy</td>
+</tr>
+<tr class="even">
+<td>Ctrl-v</td>
+<td>paste</td>
+</tr>
+</tbody>
+</table>
 <h2 id="drawing-modes">drawing modes</h2>
 <p>Use left mouse-button to draw. These are the drawing modes:</p>
 <table>
@@ -120,11 +155,24 @@ Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
 <td>type characters on your keyboard directly at mouse position</td>
 </tr>
 <tr class="odd">
+<td>inverted writemode</td>
+<td>type inverted characters on your keyboard directly at mouse
+position</td>
+</tr>
+<tr class="even">
+<td>4x4</td>
+<td>draw 4x4 pixels freely with your mouse</td>
+</tr>
+<tr class="odd">
+<td>inverted 4x4</td>
+<td>draw inverted 4x4 pixels freely with your mouse</td>
+</tr>
+<tr class="even">
 <td>set bg</td>
 <td>choose a color, then click into the picture to change the background
 color ($d021)</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>set border</td>
 <td>choose a color, then click into the picture to change the border
 color ($d020)</td>
@@ -134,10 +182,16 @@ color ($d020)</td>
 <h2 id="cut-copy-and-paste">cut, copy and paste</h2>
 <p>Use right mouse-button to select an area. Then, use the usual hotkeys
 (STRG+X, STRG+C, STRG+V) to cut, copy and paste.</p>
+<h2 id="how-to-change-the-color-palette">How to change the
+color-palette</h2>
+<p>The default palette is PEPTO. You can change the color-palette for
+previewing on your PC in your own configuration-file. In this JSON file
+you can edit the “palette” array. See section “PetPet JSON configuration
+format”.</p>
 <h2 id="how-to-change-the-layout">How to change the layout</h2>
 <p>You can change the layout of the available characters in your own
-configuration-file. In this JSON file you can edit the “layout”
-array.</p>
+configuration-file. In this JSON file you can edit the “layout” array.
+See section “PetPet JSON configuration format”.</p>
 <p>Example layouts:</p>
 <figure>
 <img src="./layout1.png" alt="layout1" />
@@ -147,6 +201,22 @@ array.</p>
 <img src="./layout2.png" alt="layout2" />
 <figcaption aria-hidden="true">layout2</figcaption>
 </figure>
+<h1 id="commandline-options">Commandline options</h1>
+<pre><code>PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
+usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
+
+This is a PETSCII editor. Press F1 for help in the program.
+
+options:
+  -h, --help            show this help message and exit
+  -p, --petscii_file PETSCII_FILENAME
+                        petscii filename (.json)
+  -c, --config_file CONFIG_FILENAME
+                        name of configuration file (.json)
+  -f, --font_file FONT_FILENAME
+                        name of font (2048 bytes)
+
+Example: ./petpet.py -p gfx.json -c config.json -f font.bin</code></pre>
 <h1 id="getting-started">Getting Started</h1>
 <h2 id="install-python">Install Python</h2>
 <h3 id="prerequisites">Prerequisites</h3>
@@ -243,6 +313,8 @@ binary import and export.</p>
 </tbody>
 </table>
 <h2 id="binary-format">binary format</h2>
+<p>You can customize this to your own needs in code/action.py in the
+functions load_petscii_bin() and save_petscii_bin() .</p>
 <table>
 <thead>
 <tr class="header">
@@ -275,6 +347,10 @@ binary import and export.</p>
 </tbody>
 </table>
 <h2 id="petscii-editor-binary-format">PETSCII-EDITOR binary format</h2>
+<p>Use this to exchange images with my native C64 tool “Petscii-Editor”
+( see <a
+href="https://csdb.dk/release/?id=155723">https://csdb.dk/release/?id=155723</a>
+).</p>
 <table>
 <thead>
 <tr class="header">
@@ -394,10 +470,18 @@ help, please, contact me:</p>
 href="http://csdb.dk/scener/?id=3623">http://csdb.dk/scener/?id=3623</a>
 or <a href="wolf@abyss-connection.de">wolf@abyss-connection.de</a></p>
 <h2 id="changes-in-1.02">Changes in 1.02</h2>
+<p>(next release candidate)</p>
 <ul>
 <li>improved undo</li>
 <li>character selection preview in selected color (thanks,
 Groepaz!)</li>
+<li>image-preview export for PC (PPM format)</li>
+<li>improved documentation</li>
+<li>new mode: inverted writemode</li>
+<li>new mode: 4x4 mode (just draw with your mouse)</li>
+<li>new mode: inverted 4x4 mode</li>
+<li>improved help</li>
+<li>new about infowindow</li>
 </ul>
 <h2 id="changes-in-1.01">Changes in 1.01</h2>
 <ul>

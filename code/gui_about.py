@@ -2,55 +2,10 @@ import code.myGlobals as myGlobals
 import tkinter as tk
 
 
-def show_info_window (
-) :
-    message = \
-        'main control\n' \
-        '------------\n' \
-        'Left-mousebutton: draw\n' \
-        '<Alt-q>: quit\n' \
-        '<Alt-o>: open PETSCII (json)\n' \
-        '<Alt-s>: save PETSCII (json)\n' \
-        '<Ctrl-s>: save PETSCII (json)\n' \
-        '<Alt-Shift-s>: save PETSCII (json) as\n' \
-        '<Alt-g>: toggle grid\n' \
-        '<Ctrl-z>: undo\n' \
-        '<Ctrl-x>: cut\n' \
-        '<Ctrl-c>: copy\n' \
-        '<Ctrl-v>: paste\n' \
-        '\n' \
-        'binary format\n' \
-        '-------------\n' \
-        '1000 bytes characters\n' \
-        '1000 bytes colors\n' \
-        '1 byte background color\n' \
-        '\n' \
-        'PETSCII-Editor binary format\n' \
-        '----------------------------\n' \
-        '$3000-$33e7 chars\n' \
-        '$33e8 border color\n' \
-        '$33e9 bg color\n' \
-        '$33ea $d018 ($14 or $16)\n' \
-        '$3400-$37e7 colors\n' \
-        '\n' \
-        'Author\n' \
-        '------\n' \
-        'fieserWolF/Abyss-Connection\n' \
-        '\n' \
-        'contact me here:\n' \
-        'https://github.com/fieserWolF\n' \
-        'https://csdb.dk/scener/?id=3623\n' \
-        '\n' \
-        'Acknowledgements\n' \
-        '----------------\n' \
-        'thanks to Logiker for testing and feature ideas\n' \
-        '\n' \
-        'thanks to Mermaid for the still wonderful PETSCII entitled "Gary"\n' \
-        '\n' \
-    
-    
-    TEXT_HEIGHT=20
-    TEXT_WIDTH=40
+def show_window (
+) :    
+    TEXT_HEIGHT=30
+    TEXT_WIDTH=80
 
     def close_window():
         info_window.destroy()
@@ -76,7 +31,8 @@ def show_info_window (
     info_window = tk.Toplevel(
         bd=10
     )
-    info_window.title('Help')
+    info_window.title('About')
+    #info_window.iconphoto(False, tk.PhotoImage(file=RES_GFX_ICON))
     info_window.configure(background=myGlobals.BGCOLOR)
 
     frame_left = tk.Frame( info_window)
@@ -98,12 +54,27 @@ def show_info_window (
         bg=myGlobals.BGCOLOR
     )
     msg_scrollBar.config(command=msg.yview)
-    msg.insert(tk.END, message)
+    msg.insert(tk.END, open(myGlobals.RES_DOC_ABOUT, encoding="utf_8").read())
     msg.config(yscrollcommand=msg_scrollBar.set)
     msg.config(state=tk.DISABLED)
 
+
     FRAME_PADX = 10
     FRAME_PADY = 10
+
+
+
+    #label with image: http://effbot.org/tkbook/photoimage.htm
+    photo = tk.PhotoImage(file=myGlobals.RES_GFX_ABOUT)
+    label_image = tk.Label(
+        frame_left,
+        bg=myGlobals.BGCOLOR,
+#        bd=10,
+        image=photo,
+        padx=FRAME_PADX,
+        pady=FRAME_PADY
+    )
+    label_image.image = photo # keep a reference!
 
     #button
     button = tk.Button(
@@ -130,6 +101,11 @@ def show_info_window (
         sticky=tk.W
     )
     
+    label_image.grid(
+        row=0,
+        column=0,
+        sticky=tk.W
+    )
     button.grid(
         row=1,
         column=0,

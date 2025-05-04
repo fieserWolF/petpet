@@ -1,0 +1,110 @@
+Using PetPet
+============
+
+shortcuts
+---------
+
+=========== ======================
+key         function
+=========== ======================
+Alt-q       quit
+Alt-o       open PETSCII (json)
+Alt-s       save PETSCII (json)
+Ctrl-s      save PETSCII (json)
+Alt-Shift-s save PETSCII (json) as
+Alt-g       toggle grid
+Ctrl-z      undo
+Ctrl-x      cut
+Ctrl-c      copy
+Ctrl-v      paste
+=========== ======================
+
+drawing modes
+-------------
+
+Use left mouse-button to draw. These are the drawing modes:
+
++-----------------------------------+-----------------------------------+
+| mode                              | description                       |
++===================================+===================================+
+| pen                               | draw characters and colors        |
++-----------------------------------+-----------------------------------+
+| brush                             | draw only colors                  |
++-----------------------------------+-----------------------------------+
+| pencil                            | draw only characters              |
++-----------------------------------+-----------------------------------+
+| writemode                         | type characters on your keyboard  |
+|                                   | directly at mouse position        |
++-----------------------------------+-----------------------------------+
+| inverted writemode                | type inverted characters on your  |
+|                                   | keyboard directly at mouse        |
+|                                   | position                          |
++-----------------------------------+-----------------------------------+
+| 4x4                               | draw 4x4 pixels freely with your  |
+|                                   | mouse                             |
++-----------------------------------+-----------------------------------+
+| inverted 4x4                      | draw inverted 4x4 pixels freely   |
+|                                   | with your mouse                   |
++-----------------------------------+-----------------------------------+
+| set bg                            | choose a color, then click into   |
+|                                   | the picture to change the         |
+|                                   | background color ($d021)          |
++-----------------------------------+-----------------------------------+
+| set border                        | choose a color, then click into   |
+|                                   | the picture to change the border  |
+|                                   | color ($d020)                     |
++-----------------------------------+-----------------------------------+
+
+cut, copy and paste
+-------------------
+
+Use right mouse-button to select an area. Then, use the usual hotkeys
+(STRG+X, STRG+C, STRG+V) to cut, copy and paste.
+
+How to change the color-palette
+-------------------------------
+
+The default palette is PEPTO. You can change the color-palette for
+previewing on your PC in your own configuration-file. In this JSON file
+you can edit the “palette” array. See section “PetPet JSON configuration
+format”.
+
+How to change the layout
+------------------------
+
+You can change the layout of the available characters in your own
+configuration-file. In this JSON file you can edit the “layout” array.
+See section “PetPet JSON configuration format”.
+
+Example layouts:
+
+.. figure:: ./layout1.png
+   :alt: layout1
+
+   layout1
+
+.. figure:: ./layout2.png
+   :alt: layout2
+
+   layout2
+
+Commandline options
+===================
+
+::
+
+   PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
+   usage: petpet.py [-h] [-p PETSCII_FILENAME] [-c CONFIG_FILENAME] [-f FONT_FILENAME]
+
+   This is a PETSCII editor. Press F1 for help in the program.
+
+   options:
+     -h, --help            show this help message and exit
+     -p, --petscii_file PETSCII_FILENAME
+                           petscii filename (.json)
+     -c, --config_file CONFIG_FILENAME
+                           name of configuration file (.json)
+     -f, --font_file FONT_FILENAME
+                           name of font (2048 bytes)
+
+   Example: ./petpet.py -p gfx.json -c config.json -f font.bin

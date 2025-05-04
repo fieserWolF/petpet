@@ -22,6 +22,64 @@ portable | available on Linux, MacOS, Windows and any other system supported by 
 * Mermaid for the still wonderful PETSCII entitled "Gary"
 
 
+
+# Using PetPet
+
+## shortcuts
+
+key | function
+---|---
+Alt-q | quit
+Alt-o | open PETSCII (json)
+Alt-s | save PETSCII (json)
+Ctrl-s | save PETSCII (json)
+Alt-Shift-s | save PETSCII (json) as
+Alt-g | toggle grid
+Ctrl-z | undo
+Ctrl-x | cut
+Ctrl-c | copy
+Ctrl-v | paste
+
+
+
+## drawing modes
+
+Use left mouse-button to draw. These are the drawing modes:
+
+mode | description
+---|---
+pen | draw characters and colors
+brush | draw only colors
+pencil | draw only characters
+writemode | type characters on your keyboard directly at mouse position
+inverted writemode | type inverted characters on your keyboard directly at mouse position
+4x4 | draw 4x4 pixels freely with your mouse
+inverted 4x4 | draw inverted 4x4 pixels freely with your mouse
+set bg | choose a color, then click into the picture to change the background color (\$d021)
+set border | choose a color, then click into the picture to change the border color (\$d020)
+
+## cut, copy and paste
+
+Use right mouse-button to select an area. Then, use the usual hotkeys (STRG+X, STRG+C, STRG+V) to cut, copy and paste.
+
+## How to change the color-palette
+
+The default palette is PEPTO.
+You can change the color-palette for previewing on your PC in your own configuration-file.
+In this JSON file you can edit the "palette" array. See section "PetPet JSON configuration format".
+
+## How to change the layout
+
+You can change the layout of the available characters in your own configuration-file.
+In this JSON file you can edit the "layout" array. See section "PetPet JSON configuration format".
+
+Example layouts:
+
+![layout1](./layout1.png)
+
+![layout2](./layout2.png)
+
+
 # Commandline options
 
 	PetPet v1.00 REVISION PARTY 2025 [19.04.2025] *** by fieserWolF
@@ -39,37 +97,6 @@ portable | available on Linux, MacOS, Windows and any other system supported by 
 							name of font (2048 bytes)
 
 	Example: ./petpet.py -p gfx.json -c config.json -f font.bin
-
-# Using PetPet
-
-## drawing modes
-
-Use left mouse-button to draw. These are the drawing modes:
-
-mode | description
----|---
-pen | draw characters and colors
-brush | draw only colors
-pencil | draw only characters
-writemode | type characters on your keyboard directly at mouse position
-set bg | choose a color, then click into the picture to change the background color (\$d021)
-set border | choose a color, then click into the picture to change the border color (\$d020)
-
-## cut, copy and paste
-
-Use right mouse-button to select an area. Then, use the usual hotkeys (STRG+X, STRG+C, STRG+V) to cut, copy and paste.
-
-## How to change the layout
-
-You can change the layout of the available characters in your own configuration-file.
-In this JSON file you can edit the "layout" array.
-
-Example layouts:
-
-![layout1](./layout1.png)
-
-![layout2](./layout2.png)
-
 
 # Getting Started
 
@@ -128,6 +155,8 @@ settings | grid | boolean | True or False
 
 ## binary format
 
+You can customize this to your own needs in code/action.py in the functions load_petscii_bin() and save_petscii_bin() .
+
 offset | size in bytes | value
 ---|---|---
 0 | 1000 | characters
@@ -137,6 +166,8 @@ offset | size in bytes | value
 
 
 ## PETSCII-EDITOR binary format
+
+Use this to exchange images with my native C64 tool "Petscii-Editor" ( see [https://csdb.dk/release/?id=155723](https://csdb.dk/release/?id=155723) ).
 
 offset | size in bytes | value
 ---|---|---
@@ -179,11 +210,17 @@ or
 
 ## Changes in 1.02
 
-(not released yet)
+(next release candidate)
  
 * improved undo
 * character selection preview in selected color (thanks, Groepaz!)
-
+* image-preview export for PC (PPM format)
+* improved documentation
+* new mode: inverted writemode
+* new mode: 4x4 mode (just draw with your mouse)
+* new mode: inverted 4x4 mode
+* improved help
+* new about infowindow
 
 
 ## Changes in 1.01

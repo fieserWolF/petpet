@@ -1,7 +1,8 @@
 import code.myGlobals as myGlobals
 import code.gui as gui
 import code.action as action
-import code.gui_info as gui_info
+import code.gui_help as gui_help
+import code.gui_about as gui_about
 import sys
 
 import tkinter as tk
@@ -73,12 +74,12 @@ def _main_procedure() :
 
            
     myGlobals.root.bind_all('<Alt-q>', lambda event: gui.quit_application())
-    myGlobals.root.bind_all('<F1>', lambda event: gui_info.show_info_window())
+    myGlobals.root.bind_all('<F1>', lambda event: gui_help.show_window())
     myGlobals.root.bind_all('<Alt-o>', lambda event: gui.open_petscii_json())
     myGlobals.root.bind_all('<Alt-s>', lambda event: action.save_petscii_json())
     myGlobals.root.bind_all('<Control-s>', lambda event: action.save_petscii_json())
     myGlobals.root.bind_all('<Alt-S>', lambda event: gui.save_as_petscii_json())
-    myGlobals.root.bind_all('<Alt-g>', lambda event: action.toggle_grid())
+    myGlobals.root.bind_all('<Alt-g>', lambda event: action.select_toggle_grid())
     myGlobals.root.bind_all('<Control-z>', lambda event: action.undo_restore())
     myGlobals.root.bind_all('<Control-c>', lambda event: action.copy())
     myGlobals.root.bind_all('<Control-v>', lambda event: action.paste())

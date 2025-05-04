@@ -14,8 +14,8 @@ def _global_constants():
         return None
 
 PROGNAME = 'PetPet';
-VERSION = '1.01';
-LAST_EDITED = '24.04.2025';
+VERSION = '1.02';
+LAST_EDITED = '04.05.2025';
     
 GFX_DRAW = resource_path('resources/icon_draw.xbm')
 GFX_BRUSH = resource_path('resources/icon_colorize.xbm')
@@ -24,6 +24,13 @@ GFX_BG = resource_path('resources/icon_bg.xbm')
 GFX_BORDER = resource_path('resources/icon_border.xbm')
 GFX_GRID = resource_path('resources/icon_grid.xbm')
 GFX_WRITEMODE = resource_path('resources/icon_writemode.xbm')
+GFX_WRITEMODE_INVERTED = resource_path('resources/icon_writemode_inverted.xbm')
+GFX_4X4 = resource_path('resources/icon_4x4.xbm')
+GFX_4X4_INVERTED = resource_path('resources/icon_4x4_inverted.xbm')
+
+RES_GFX_ABOUT = resource_path('resources/about.png')
+RES_DOC_ABOUT = resource_path('resources/about.txt')
+RES_DOC_HELP = resource_path('resources/help.txt')
 
 CHARROM_UPPERCASE = resource_path('resources/charrom_uppercase.bin')
 CHARROM_LOWERCASE = resource_path('resources/charrom_lowercase.bin')
@@ -62,6 +69,8 @@ FRAME_BORDER = 4
 MOUSEPOINTER_HAND = 'hand2'
 MOUSEPOINTER_NORMAL = 'tcross'
 MOUSEPOINTER_NONE = 'X_cursor'
+
+
 
 #https://sta.c64.org/cbm64scr.html
 C64_SCREENCODES = {
@@ -143,7 +152,11 @@ viewer_data = (
 def _global_variables():
         return None
 
-time_last = 0
+
+mode='pen'
+#mode='4x4'
+
+#time_last = 0
 
 root = tk.Tk()
 args = None
@@ -187,6 +200,7 @@ charpicker_grid_posy = 0
 canvas_draw = tk.Canvas()
 canvas_chars = tk.Canvas()
 
+my_photo_draw_ppm = ''
 my_photo_draw = tk.PhotoImage()
 my_photo_chars = tk.PhotoImage()
 
@@ -203,11 +217,13 @@ last_posx = 0
 last_posy = 0
 last_drawn_posx = 0
 last_drawn_posy = 0
+mouse_4x4_x = 0
+mouse_4x4_y = 0
+last_mouse_4x4_x = 0
+last_mouse_4x4_y = 0
 PETSCII_image_data = []
 PETSCII_image_data_old = []
 #char_render_data = [0] * IMAGE_SCALE*8 * IMAGE_SCALE*8
-
-mode='pen'
 
 user_drawcolor = tk.IntVar()
 user_drawcolor.set(INIT_COLOR)
@@ -223,4 +239,7 @@ button_pencil = tk.Button()
 button_bg = tk.Button()
 button_border = tk.Button()
 button_writemode = tk.Button()
+button_writemode_inverted = tk.Button()
+button_4x4 = tk.Button()
+button_4x4_inverted = tk.Button()
 button_grid = tk.Button()
