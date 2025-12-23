@@ -221,8 +221,6 @@ or
 
 ## Changes in 1.02
 
-(next release candidate)
-
 * improved undo
 * character selection preview in selected color (thanks, Groepaz!)
 * image-preview export for PC (PPM format)
