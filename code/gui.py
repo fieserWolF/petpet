@@ -3,7 +3,6 @@ import code.action as action
 import code.gui_help as gui_help
 import code.gui_about as gui_about
 import tkinter as tk
-#from tkinter.filedialog import askopenfilename, asksaveasfilename
 import tkinter.filedialog as filedialog
 
 

@@ -14,7 +14,8 @@ import argparse
 def _main_procedure() :
     #writes args
     
-    print('%s v%s [%s] *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION, myGlobals.LAST_EDITED))
+    #print('%s v%s [%s] *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION, myGlobals.LAST_EDITED))
+    print('%s %s *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION))
 
     #https://docs.python.org/3/library/argparse.html
     parser = argparse.ArgumentParser(
@@ -22,8 +23,8 @@ def _main_procedure() :
         epilog='Example: '+sys.argv[0]+' -p gfx.json -c config.json -f font.bin'
     )
     parser.add_argument('-p', '--petscii_file', dest='petscii_filename', help='petscii filename (.json)')
-    parser.add_argument('-c', '--config_file', dest='config_filename', help='name of configuration file (.json)', default='./resources/config.json')
-    parser.add_argument('-f', '--font_file', dest='font_filename', help='name of font (2048 bytes)', default='./resources/charrom_uppercase.bin')
+    parser.add_argument('-c', '--config_file', dest='config_filename', help='name of configuration file (.json) default: "'+myGlobals.RES_CONFIG+'"', default=myGlobals.RES_CONFIG)
+    parser.add_argument('-f', '--font_file', dest='font_filename', help='name of font (2048 bytes) default: "'+myGlobals.CHARROM_UPPERCASE+'"', default=myGlobals.CHARROM_UPPERCASE)
     myGlobals.args = parser.parse_args()
 
     #action.save_config()
@@ -42,7 +43,8 @@ def _main_procedure() :
 
     
     #main procedure
-    title_string = myGlobals.PROGNAME+' v'+myGlobals.VERSION+' ['+myGlobals.LAST_EDITED+'] *** by fieserWolF'
+    #title_string = myGlobals.PROGNAME+' v'+myGlobals.VERSION+' ['+myGlobals.LAST_EDITED+'] *** by fieserWolF'
+    title_string = myGlobals.PROGNAME+' '+myGlobals.VERSION+' *** by fieserWolF'
     myGlobals.root.title(title_string)
     gui.create_drop_down_menu(myGlobals.root)
 

@@ -3,7 +3,6 @@ import os
 import struct
 import tkinter as tk
 import json
-#import time
 
 
     

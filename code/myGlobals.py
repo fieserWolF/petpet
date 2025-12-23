@@ -14,26 +14,64 @@ def _global_constants():
         return None
 
 PROGNAME = 'PetPet';
-VERSION = '1.02';
-LAST_EDITED = '04.05.2025';
-    
-GFX_DRAW = resource_path('resources/icon_draw.xbm')
-GFX_BRUSH = resource_path('resources/icon_colorize.xbm')
-GFX_PENCIL = resource_path('resources/icon_brush.xbm')
-GFX_BG = resource_path('resources/icon_bg.xbm')
-GFX_BORDER = resource_path('resources/icon_border.xbm')
-GFX_GRID = resource_path('resources/icon_grid.xbm')
-GFX_WRITEMODE = resource_path('resources/icon_writemode.xbm')
-GFX_WRITEMODE_INVERTED = resource_path('resources/icon_writemode_inverted.xbm')
-GFX_4X4 = resource_path('resources/icon_4x4.xbm')
-GFX_4X4_INVERTED = resource_path('resources/icon_4x4_inverted.xbm')
+#VERSION = '1.02';
+#LAST_EDITED = '04.05.2025';
 
-RES_GFX_ABOUT = resource_path('resources/about.png')
-RES_DOC_ABOUT = resource_path('resources/about.txt')
-RES_DOC_HELP = resource_path('resources/help.txt')
 
-CHARROM_UPPERCASE = resource_path('resources/charrom_uppercase.bin')
-CHARROM_LOWERCASE = resource_path('resources/charrom_lowercase.bin')
+def resource_path(relative_path):
+    #Get absolute path to resource, works for dev and for PyInstaller
+    #print('input: "'+relative_path+'"')
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+    #base_path = os.getcwd()
+    return_value = os.path.normpath(os.path.join(base_path, relative_path))
+    #print('output: "'+return_value+'"')
+    return return_value
+
+
+#RESOURCE_DIR = './resources'   #use this only for pyinstaller --one-file
+RESOURCE_DIR = '../resources'    #use this for normal execution
+GFX_DRAW = resource_path(RESOURCE_DIR+'/icon_draw.xbm')
+GFX_BRUSH = resource_path(RESOURCE_DIR+'/icon_colorize.xbm')
+GFX_PENCIL = resource_path(RESOURCE_DIR+'/icon_brush.xbm')
+GFX_BG = resource_path(RESOURCE_DIR+'/icon_bg.xbm')
+GFX_BORDER = resource_path(RESOURCE_DIR+'/icon_border.xbm')
+GFX_GRID = resource_path(RESOURCE_DIR+'/icon_grid.xbm')
+GFX_WRITEMODE = resource_path(RESOURCE_DIR+'/icon_writemode.xbm')
+GFX_WRITEMODE_INVERTED = resource_path(RESOURCE_DIR+'/icon_writemode_inverted.xbm')
+GFX_4X4 = resource_path(RESOURCE_DIR+'/icon_4x4.xbm')
+GFX_4X4_INVERTED = resource_path(RESOURCE_DIR+'/icon_4x4_inverted.xbm')
+
+RES_VERSION = resource_path(RESOURCE_DIR+'/version.txt')
+RES_GFX_ABOUT = resource_path(RESOURCE_DIR+'/about.png')
+RES_DOC_ABOUT = resource_path(RESOURCE_DIR+'/about.txt')
+RES_DOC_HELP = resource_path(RESOURCE_DIR+'/help.txt')
+CHARROM_UPPERCASE = resource_path(RESOURCE_DIR+'/charrom_uppercase.bin')
+CHARROM_LOWERCASE = resource_path(RESOURCE_DIR+'/charrom_lowercase.bin')
+RES_CONFIG = resource_path(RESOURCE_DIR+'/config.json')
+
+#print('my path: "'+os.getcwd()+'"')
+print('my path: "'+getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))+'"')
+print('looking for "'+RES_VERSION+'"')
+VERSION = open(RES_VERSION, encoding="utf_8").read().rstrip()
+
+
+#GFX_DRAW = resource_path('./resources/icon_draw.xbm')
+#GFX_BRUSH = resource_path('./resources/icon_colorize.xbm')
+#GFX_PENCIL = resource_path('./resources/icon_brush.xbm')
+#GFX_BG = resource_path('./resources/icon_bg.xbm')
+#GFX_BORDER = resource_path('./resources/icon_border.xbm')
+#GFX_GRID = resource_path('./resources/icon_grid.xbm')
+#GFX_WRITEMODE = resource_path('./resources/icon_writemode.xbm')
+#GFX_WRITEMODE_INVERTED = resource_path('./resources/icon_writemode_inverted.xbm')
+#GFX_4X4 = resource_path('./resources/icon_4x4.xbm')
+#GFX_4X4_INVERTED = resource_path('./resources/icon_4x4_inverted.xbm')
+
+#RES_GFX_ABOUT = resource_path('./resources/about.png')
+#RES_DOC_ABOUT = resource_path('./resources/about.txt')
+#RES_DOC_HELP = resource_path('./resources/help.txt')
+
+#CHARROM_UPPERCASE = resource_path('./resources/charrom_uppercase.bin')
+#CHARROM_LOWERCASE = resource_path('./esources/charrom_lowercase.bin')
 
 INIT_CHAR = 32 #space
 INIT_COLOR = 1  #white

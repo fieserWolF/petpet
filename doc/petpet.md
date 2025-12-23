@@ -100,9 +100,20 @@ Example layouts:
 
 # Getting Started
 
-## Install Python
+Petpet comes in two flavors:
 
-### Prerequisites
+- standalone executable for 64-bit systems Linux and Windows (see [releases](https://github.com/fieserWolF/petpet/releases))
+- Python3 script
+
+## Run the standalone executable
+
+Just download your bundle at [releases](https://github.com/fieserWolF/petpet/releases), extract the zip file and enjoy.
+
+## Run the Python3 script directly
+
+### Install Python
+
+#### Prerequisites
 
 Python3 is needed to run PetPet. Everything else needed should be provided in your Python3 installation by default:
 
@@ -110,12 +121,12 @@ Python3 is needed to run PetPet. Everything else needed should be provided in yo
 - tkinter
 - argparse
 
-### Install Python on Windows or Mac
+#### Install Python on Windows or Mac
 
 * Download Python from [https://www.python.org](https://www.python.org).
 * Install Python on your computer.
 
-### Install Python on Linux
+#### Install Python on Linux
 
 On my Debian GNU/Linux machine I use apt to install everything needed:
 ```
@@ -128,7 +139,7 @@ Alternatively, you can use pip to install missing modules:
 pip3 install tk argparse json
 ```
 
-## Download PetPet
+### Download PetPet
 
 * Go to [https://github.com/fieserWolF/petpet](https://github.com/fieserWolF/petpet).
 * Click on the green "Code" button and "Download ZIP".
@@ -211,7 +222,7 @@ or
 ## Changes in 1.02
 
 (next release candidate)
- 
+
 * improved undo
 * character selection preview in selected color (thanks, Groepaz!)
 * image-preview export for PC (PPM format)
@@ -221,6 +232,7 @@ or
 * new mode: inverted 4x4 mode
 * improved help
 * new about infowindow
+* various bug-fixes
 
 
 ## Changes in 1.01
