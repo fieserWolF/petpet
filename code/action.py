@@ -297,9 +297,9 @@ def draw_petscii_image_single(x,y,char,color) :
             pos_src = ( (yy*CHAR_WIDTH)+xx )*1
             pos_dst = (pos + (yy*PANEL_WIDTH) + xx)*3
            
-            myGlobals.PETSCII_image_data[pos_dst+0] = my_data[pos_src][0]
-            myGlobals.PETSCII_image_data[pos_dst+1] = my_data[pos_src][1]
-            myGlobals.PETSCII_image_data[pos_dst+2] = my_data[pos_src][2]
+            myGlobals.PETSCII_image_data[pos_dst+0] = my_data[pos_src][0]   #r
+            myGlobals.PETSCII_image_data[pos_dst+1] = my_data[pos_src][1]   #g
+            myGlobals.PETSCII_image_data[pos_dst+2] = my_data[pos_src][2]   #b
 
     myGlobals.my_photo_draw = convert_to_photo_image(PANEL_WIDTH, PANEL_HEIGHT, myGlobals.PETSCII_image_data)
     myGlobals.image_is_saved = False    
@@ -313,8 +313,8 @@ def draw_petscii_image_full() :
     
     CHAR_WIDTH = 8*myGlobals.IMAGE_SCALE
     CHAR_HEIGHT = 8*myGlobals.IMAGE_SCALE
-    PANEL_WIDTH=myGlobals.CHAR_WIDTH*8*myGlobals.IMAGE_SCALE
-    PANEL_HEIGHT=myGlobals.CHAR_HEIGHT*8*myGlobals.IMAGE_SCALE
+    PANEL_WIDTH = myGlobals.CHAR_WIDTH*8*myGlobals.IMAGE_SCALE
+    PANEL_HEIGHT = myGlobals.CHAR_HEIGHT*8*myGlobals.IMAGE_SCALE
 
     #background
     myGlobals.PETSCII_image_data = [255,100,100] * PANEL_HEIGHT * PANEL_WIDTH
@@ -334,9 +334,9 @@ def draw_petscii_image_full() :
                     pos_src = ( (yy*CHAR_WIDTH)+xx )*1
                     pos_dst = (pos + (yy*PANEL_WIDTH) + xx)*3
                    
-                    myGlobals.PETSCII_image_data[pos_dst+0] = my_data[pos_src][0]
-                    myGlobals.PETSCII_image_data[pos_dst+1] = my_data[pos_src][1]
-                    myGlobals.PETSCII_image_data[pos_dst+2] = my_data[pos_src][2]
+                    myGlobals.PETSCII_image_data[pos_dst+0] = my_data[pos_src][0]   #r
+                    myGlobals.PETSCII_image_data[pos_dst+1] = my_data[pos_src][1]   #g
+                    myGlobals.PETSCII_image_data[pos_dst+2] = my_data[pos_src][2]   #b
                     
             char_number+=1
     

@@ -199,7 +199,7 @@ Alternatively, you can use pip to install missing modules:
 
 ::
 
-   pip3 install tk argparse json
+   pip3 install argparse json
 
 Download PetPet
 ~~~~~~~~~~~~~~~
@@ -305,10 +305,15 @@ help, please, contact me:
 http://csdb.dk/scener/?id=3623 or
 `wolf@abyss-connection.de <wolf@abyss-connection.de>`__
 
-Changes in 1.02
+Changes in 1.03
 ---------------
 
 (next release candidate)
+
+-  improved GUI
+
+Changes in 1.02
+---------------
 
 -  improved undo
 -  character selection preview in selected color (thanks, Groepaz!)
@@ -339,7 +344,7 @@ released on REVISION PARTY 2025
 
 *PetPet is a PETSCII editor for Commodore 64 computers.*
 
-*Copyright (C) 2025 fieserWolF / Abyss-Connection*
+*Copyright (C) 2026 fieserWolF / Abyss-Connection*
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the
@@ -360,8 +365,8 @@ For further questions, please contact me at
 http://csdb.dk/scener/?id=3623 or
 `wolf@abyss-connection.de <wolf@abyss-connection.de>`__
 
-For Python3, The Python Imaging Library (PIL), Tcl/Tk and other used
-source licenses see file `LICENSE_OTHERS <LICENSE_OTHERS>`__.
+For Python3, Tcl/Tk and other used source licenses see file
+`LICENSE_OTHERS <LICENSE_OTHERS>`__.
 
 GNU General Public License
 ==========================

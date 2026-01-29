@@ -136,7 +136,7 @@ apt install python3 python3-tk
 
 Alternatively, you can use pip to install missing modules:
 ```
-pip3 install tk argparse json
+pip3 install argparse json
 ```
 
 ### Download PetPet
@@ -219,6 +219,13 @@ or
 
 
 
+## Changes in 1.03
+
+(next release candidate)
+
+* improved GUI
+
+
 ## Changes in 1.02
 
 * improved undo
@@ -251,7 +258,7 @@ released on REVISION PARTY 2025
 
 _PetPet is a PETSCII editor for Commodore 64 computers._
 
-_Copyright (C) 2025 fieserWolF / Abyss-Connection_
+_Copyright (C) 2026 fieserWolF / Abyss-Connection_
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
@@ -269,6 +276,6 @@ For further questions, please contact me at
 or
 [wolf@abyss-connection.de](wolf@abyss-connection.de)
 
-For Python3, The Python Imaging Library (PIL), Tcl/Tk and other used source licenses see file [LICENSE_OTHERS](LICENSE_OTHERS).
+For Python3, Tcl/Tk and other used source licenses see file [LICENSE_OTHERS](LICENSE_OTHERS).
 
 

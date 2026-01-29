@@ -51,6 +51,10 @@ def _main_procedure() :
     myGlobals.root.configure(
         background=myGlobals.BGCOLOR
     )
+    myGlobals.root.grid_columnconfigure(0, weight=1)
+    myGlobals.root.grid_rowconfigure(0, weight=0)
+    myGlobals.root.grid_rowconfigure(1, weight=1)
+    myGlobals.root.grid_rowconfigure(2, weight=0)
 
     gui.create_top(
         myGlobals.root,

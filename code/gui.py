@@ -147,15 +147,22 @@ def create_image_draw (
 ) :
     #writes label_background_image
     
+    """
     frame_border = tk.Frame(
         root,
-        bg=myGlobals.BGCOLOR,
+        bg='#ff0000',
+        #bg=myGlobals.BGCOLOR,
         bd=myGlobals.FRAME_BORDER,
     )
     frame_border.grid(
         row=_row,
-        column=_column
+        column=_column,
+        sticky=tk.W+tk.E+tk.N+tk.S
     )
+    frame_border.grid_columnconfigure(0, weight=1)
+    frame_border.grid_rowconfigure(0, weight=1)
+    myGlobals.canvas_draw = tk.Canvas(frame_border, width=myGlobals.FULL_SCREEN_WIDTH, height=myGlobals.FULL_SCREEN_HEIGHT, background="#000000")
+    """
 
     myGlobals.canvas_draw = tk.Canvas(root, width=myGlobals.FULL_SCREEN_WIDTH, height=myGlobals.FULL_SCREEN_HEIGHT, background="#000000")
 
@@ -171,8 +178,10 @@ def create_image_draw (
     myGlobals.canvas_draw.grid(
         row=0,
         column=0,
-        sticky=tk.W+tk.E
+        sticky=tk.W+tk.E+tk.N+tk.S
     )
+    myGlobals.canvas_draw.grid_columnconfigure(0, weight=1)
+    myGlobals.canvas_draw.grid_rowconfigure(0, weight=1)
     
     myGlobals.canvas_draw.bind('<Motion>', action.mouse_draw_Motion)
     myGlobals.canvas_draw.bind('<Button-1>', action.mouse_draw_Button1)
@@ -366,63 +375,27 @@ def create_infobox (
 
 
 
+
+
 def create_top (
+    root,
+    _row,
+    _column
+) :
+    #label with image: http://effbot.org/tkbook/photoimage.htm
+    photo = tk.PhotoImage(file=myGlobals.RES_GFX_AC)
+    label_image = tk.Label(
         root,
-        _row,
-        _column
-) :    
-    #frame border
-    frame_border = tk.Frame(
-        root,
-        bd=1,
         bg=myGlobals.BGCOLOR,
+        image=photo
     )
-    frame_border.grid(
-        row=_row,
-        column=_column,
-        sticky=tk.W+tk.E
-    )
-    frame_border.grid_columnconfigure(0, weight=1)
-    frame_border.grid_rowconfigure(0, weight=1)
+    label_image.image = photo # keep a reference!
 
-
-    #frame left
-    frame_left = tk.Frame(
-        frame_border,
-        bd=1,
-        bg=myGlobals.BGCOLOR,
-    )
-    frame_left.grid(
+    #placement in grid
+    label_image.grid(
         row=0,
         column=0,
-        sticky=tk.W
-    )
-    frame_left.grid_columnconfigure(0, weight=1)
-    frame_left.grid_rowconfigure(0, weight=1)
-
-
-    #frame right
-    frame_right = tk.Frame(
-        frame_border,
-        bd=1,
-        bg=myGlobals.BGCOLOR,
-    )
-    frame_right.grid(
-        row=0,
-        column=1,
-        sticky=tk.W
-    )
-    frame_right.grid_columnconfigure(0, weight=1)
-    frame_right.grid_rowconfigure(0, weight=1)
-
-    #create elements
-    create_infobox (
-        frame_left,   #root frame
-        0,  #row
-        0,  #column
-        'file:',    #text
-        myGlobals.textvariable_filename,   #textvariable
-        0   #text width
+        sticky=tk.W+tk.E
     )
 
 
@@ -441,9 +414,11 @@ def create_middle (
     frame_border.grid(
         row=_row,
         column=_column,
-        sticky=tk.W+tk.E
+        sticky=tk.W+tk.E+tk.S+tk.N
     )
-    frame_border.grid_columnconfigure(0, weight=1)
+    frame_border.grid_columnconfigure(0, weight=0)
+    frame_border.grid_columnconfigure(1, weight=1)
+    frame_border.grid_columnconfigure(2, weight=0)
     frame_border.grid_rowconfigure(0, weight=1)
 
 
@@ -458,8 +433,6 @@ def create_middle (
         column=0,
         sticky=tk.W
     )
-    frame_left.grid_columnconfigure(0, weight=1)
-    frame_left.grid_rowconfigure(0, weight=1)
 
 
     #frame middle
@@ -471,7 +444,7 @@ def create_middle (
     frame_middle.grid(
         row=0,
         column=1,
-        sticky=tk.W
+        sticky=tk.W+tk.E+tk.N+tk.S
     )
     frame_middle.grid_columnconfigure(0, weight=1)
     frame_middle.grid_rowconfigure(0, weight=1)
@@ -486,10 +459,8 @@ def create_middle (
     frame_right.grid(
         row=0,
         column=2,
-        sticky=tk.W
+        sticky=tk.E
     )
-    frame_right.grid_columnconfigure(0, weight=1)
-    frame_right.grid_rowconfigure(0, weight=1)
 
 
 
@@ -522,41 +493,28 @@ def create_middle (
 
 
 def create_bottom (
-        root,
-        _row,
-        _column
+    root,
+    _row,
+    _column
 ) :    
-    #frame border
-    frame_border = tk.Frame(
+    #frame inner
+    frame_inner = tk.Frame(
         root,
         bd=1,
         bg=myGlobals.BGCOLOR,
+        #bg='#00ff00',
     )
-    frame_border.grid(
+    frame_inner.grid(
         row=_row,
         column=_column,
-        sticky=tk.W+tk.E
+        #sticky=tk.W+tk.E
     )
-    frame_border.grid_columnconfigure(0, weight=1)
-    frame_border.grid_rowconfigure(0, weight=1)
-
-    #frame left
-    frame_left = tk.Frame(
-        frame_border,
-        bd=1,
-        bg=myGlobals.BGCOLOR,
-    )
-    frame_left.grid(
-        row=0,
-        column=0,
-        sticky=tk.W
-    )
-    frame_left.grid_columnconfigure(0, weight=1)
-    frame_left.grid_rowconfigure(0, weight=1)
+    #frame_inner.grid_columnconfigure(0, weight=1)
+    #frame_inner.grid_rowconfigure(0, weight=1)
 
     #create elements
     create_infobox (
-        frame_left,   #root frame
+        frame_inner,   #root frame
         0,  #row
         0,  #column
         'mode:',    #text
@@ -565,12 +523,21 @@ def create_bottom (
     )
 
     create_infobox (
-        frame_left,   #root frame
+        frame_inner,   #root frame
         0,  #row
         1,  #column
         'info:',    #text
         myGlobals.textvariable_info,   #textvariable
         50   #text width
+    )
+
+    create_infobox (
+        frame_inner,   #root frame
+        0,  #row
+        2,  #column
+        'file:',    #text
+        myGlobals.textvariable_filename,   #textvariable
+        0   #text width
     )
 
 

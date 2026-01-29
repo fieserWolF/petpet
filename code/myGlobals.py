@@ -14,8 +14,6 @@ def _global_constants():
         return None
 
 PROGNAME = 'PetPet';
-#VERSION = '1.02';
-#LAST_EDITED = '04.05.2025';
 
 
 def resource_path(relative_path):
@@ -42,6 +40,7 @@ GFX_4X4 = resource_path(RESOURCE_DIR+'/icon_4x4.xbm')
 GFX_4X4_INVERTED = resource_path(RESOURCE_DIR+'/icon_4x4_inverted.xbm')
 
 RES_VERSION = resource_path(RESOURCE_DIR+'/version.txt')
+RES_GFX_AC = resource_path(RESOURCE_DIR+'/ac.png')
 RES_GFX_ABOUT = resource_path(RESOURCE_DIR+'/about.png')
 RES_DOC_ABOUT = resource_path(RESOURCE_DIR+'/about.txt')
 RES_DOC_HELP = resource_path(RESOURCE_DIR+'/help.txt')
