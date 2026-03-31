@@ -15,6 +15,21 @@ def open_petscii_json():
     action.load_petscii_json()
 
 
+def open_config_json():    
+    ftypes = [('configuration Files', '*.json')]
+    user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.config_filename = user_filename_open
+    action.load_config()
+
+    action.load_charset()
+    action.draw_charset_image()
+    action.refresh_chars_image()
+
+    action.draw_petscii_image_full()
+    action.refresh_draw_image()
+
+
 def open_font():    
     ftypes = [('Font Files', '*')]
     user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
@@ -114,6 +129,7 @@ def create_drop_down_menu (
     filemenu.add_command(label="export PPM image", command=save_as_ppm)
     filemenu.add_separator()
     filemenu.add_command(label="open font", command=open_font)
+    filemenu.add_command(label="open config", command=open_config_json)
     filemenu.add_command(label="save config", command=action.save_config)
     filemenu.add_separator()
     filemenu.add_command(label="quit", command=quit_application, underline=0, accelerator="Alt+Q")

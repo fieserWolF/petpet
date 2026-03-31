@@ -311,7 +311,9 @@ Changes in 1.03
 (next release candidate)
 
 -  improved GUI
--  added layout for dirart (with restricted character-set)
+-  added “open config” menu item
+-  added layout for dirart “config_dirart.json” (with restricted
+   character-set)
 
 Changes in 1.02
 ---------------

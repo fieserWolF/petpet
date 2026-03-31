@@ -22,6 +22,8 @@ def load_json(
     
 
 
+
+
 def load_config() :
     data = load_json(myGlobals.args.config_filename)
     myGlobals.palette = data['palette']
@@ -29,6 +31,7 @@ def load_config() :
     myGlobals.show_grid = data['settings']['grid']
     myGlobals.data_bg = data['settings']['background']
     myGlobals.data_border = data['settings']['border']
+    myGlobals.args.font_filename = data['settings']['font']
 
 
 def load_petscii_json() :
@@ -958,7 +961,7 @@ def load_charset(
             print('%s'%j,end='')
         print()
     """
-
+    
     draw_charset_image()
     refresh_chars_image()
 
