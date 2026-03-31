@@ -224,6 +224,7 @@ or
 (next release candidate)
 
 * improved GUI
+* added layout for dirart (with restricted character-set)
 
 
 ## Changes in 1.02
