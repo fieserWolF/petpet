@@ -1,4 +1,5 @@
 import code.myGlobals as myGlobals
+import code.main as main
 import os
 import struct
 import tkinter as tk
@@ -220,31 +221,51 @@ def convert_to_photo_image(
     myGlobals.my_photo_draw_ppm = ('P6 '+str(my_width)+' '+str(my_height)+' 255 ').encode(encoding='UTF-8',errors='strict') + bytearray(my_data)
     #print(data)
 
-    return tk.PhotoImage(width=my_width, height=my_height, data=myGlobals.my_photo_draw_ppm, format='PPM')
+    #return tk.PhotoImage(width=my_width, height=my_height, data=myGlobals.my_photo_draw_ppm, format='PPM')
+    return tk.PhotoImage(width=my_width, height=my_height, data=myGlobals.my_photo_draw_ppm, format='PPM').zoom(myGlobals.IMAGE_SCALE,myGlobals.IMAGE_SCALE)
 
 
 
 
 def create_draw_canvas_grid() :
     #print("create_draw_canvas_grid()")
+
+    # delete old grid
+    myGlobals.canvas_draw.delete('grid')
+    
+    my_state = 'hidden'
+    if myGlobals.show_grid : my_state = 'normal'
+    
     GRID_COLOR = '#aaaaaa'
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_line.html
-    for y in range(0,int(myGlobals.IMAGE_HEIGHT/8)) :
+    for y in range(0,int(myGlobals.IMAGE_HEIGHT/8)+1) :
+        ypos = y*8*myGlobals.IMAGE_SCALE
         myGlobals.canvas_draw.create_line(
-            myGlobals.BORDER_WIDTH, #x0
-            myGlobals.BORDER_WIDTH+y*8*myGlobals.IMAGE_SCALE,     #y0
-            myGlobals.BORDER_WIDTH+myGlobals.IMAGE_WIDTH*myGlobals.IMAGE_SCALE,    #x1
-            myGlobals.BORDER_WIDTH+y*8*myGlobals.IMAGE_SCALE, #y1
+            0,  #x0
+            ypos,     #y0
+            myGlobals.IMAGE_WIDTH*myGlobals.IMAGE_SCALE,    #x1
+            ypos,     #y1
             fill=GRID_COLOR,
-            tags='grid')
-    for x in range(0,int(myGlobals.IMAGE_WIDTH/8)) :
+            tags='grid',
+            state=my_state)
+    for x in range(0,int(myGlobals.IMAGE_WIDTH/8)+1) :
+        xpos = x*8*myGlobals.IMAGE_SCALE
         myGlobals.canvas_draw.create_line(
-            myGlobals.BORDER_WIDTH+x*8*myGlobals.IMAGE_SCALE, #x0
-            myGlobals.BORDER_WIDTH,     #y0
-            myGlobals.BORDER_WIDTH+x*8*myGlobals.IMAGE_SCALE,    #x1
-            myGlobals.BORDER_WIDTH+myGlobals.IMAGE_HEIGHT*myGlobals.IMAGE_SCALE, #y1
+            xpos,  #x0
+            0,  #y0
+            xpos,  #x1
+            myGlobals.IMAGE_HEIGHT*myGlobals.IMAGE_SCALE, #y1
             fill=GRID_COLOR,
-            tags='grid')
+            tags='grid',
+            state=my_state)
+
+    #move grid to correct position
+    myGlobals.canvas_draw.move(
+        'grid',
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2,
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2
+    )
+
 
 
 def draw_charset_image_single(
@@ -252,13 +273,12 @@ def draw_charset_image_single(
     color,
     bg_color
 ) :
-    SCALE = 2
-    CHAR_WIDTH = 8*SCALE
-    CHAR_HEIGHT = 8*SCALE
+    CHAR_WIDTH = 8
+    CHAR_HEIGHT = 8
    
     data = [myGlobals.palette[bg_color]] * CHAR_HEIGHT * CHAR_WIDTH
 
-    #draw charset
+    #draw char
     for y in range(0,8) :
         for x in range(0,8) :
             value = myGlobals.data_charset[char_number][y][x]
@@ -266,17 +286,11 @@ def draw_charset_image_single(
             if (value != 0) :
                 rgb = myGlobals.palette[color]
             
-                xx = x*SCALE
-                yy = y*SCALE
+                xx = x
+                yy = y
 
-                pos1 = ((yy+0)*CHAR_WIDTH) +xx+0
-                pos2 = ((yy+0)*CHAR_WIDTH) +xx+1
-                pos3 = ((yy+1)*CHAR_WIDTH) +xx+0
-                pos4 = ((yy+1)*CHAR_WIDTH) +xx+1
-                data[pos1] = rgb
-                data[pos2] = rgb
-                data[pos3] = rgb
-                data[pos4] = rgb
+                pos = ((yy+0)*CHAR_WIDTH) +xx+0
+                data[pos] = rgb
             
     return data
 
@@ -284,10 +298,10 @@ def draw_charset_image_single(
 def draw_petscii_image_single(x,y,char,color) :
     #debug_time('draw_petscii_image_single()')
     
-    CHAR_WIDTH = 8 * myGlobals.IMAGE_SCALE
-    CHAR_HEIGHT = 8 * myGlobals.IMAGE_SCALE
-    PANEL_WIDTH = myGlobals.CHAR_WIDTH * 8 * myGlobals.IMAGE_SCALE
-    PANEL_HEIGHT = myGlobals.CHAR_HEIGHT * 8 * myGlobals.IMAGE_SCALE
+    CHAR_WIDTH = 8  # * myGlobals.IMAGE_SCALE
+    CHAR_HEIGHT = 8 # * myGlobals.IMAGE_SCALE
+    PANEL_WIDTH = myGlobals.CHAR_WIDTH * 8
+    PANEL_HEIGHT = myGlobals.CHAR_HEIGHT * 8
     my_bytes = [255,100,100] * CHAR_WIDTH * CHAR_HEIGHT
     #my_data = [0] * CHAR_WIDTH * CHAR_HEIGHT
 
@@ -314,10 +328,10 @@ def draw_petscii_image_full() :
     #https://inf-schule.de/software/gui/entwicklung_tkinter/bilder
     #my_photo = tk.PhotoImage(file="image.ppm")
     
-    CHAR_WIDTH = 8*myGlobals.IMAGE_SCALE
-    CHAR_HEIGHT = 8*myGlobals.IMAGE_SCALE
-    PANEL_WIDTH = myGlobals.CHAR_WIDTH*8*myGlobals.IMAGE_SCALE
-    PANEL_HEIGHT = myGlobals.CHAR_HEIGHT*8*myGlobals.IMAGE_SCALE
+    CHAR_WIDTH = 8
+    CHAR_HEIGHT = 8
+    PANEL_WIDTH = myGlobals.CHAR_WIDTH*8
+    PANEL_HEIGHT = myGlobals.CHAR_HEIGHT*8
 
     #background
     myGlobals.PETSCII_image_data = [255,100,100] * PANEL_HEIGHT * PANEL_WIDTH
@@ -354,8 +368,8 @@ def draw_charset_image() :
 
     my_bytes = []
     #SCALE = myGlobals.IMAGE_SCALE
-    CHAR_WIDTH = 8*myGlobals.IMAGE_SCALE
-    CHAR_HEIGHT = 8*myGlobals.IMAGE_SCALE
+    CHAR_WIDTH = 8
+    CHAR_HEIGHT = 8
     PANEL_WIDTH=myGlobals.CHARPICKER_LAYOUT_WIDTH*CHAR_WIDTH
     PANEL_HEIGHT=myGlobals.CHARPICKER_LAYOUT_HEIGHT*CHAR_HEIGHT
 
@@ -715,24 +729,46 @@ def debug_time(
 def create_draw_canvas_elements(draw_border = False):
     #print('create_draw_canvas_elements()')
     #myGlobals.canvas_draw.delete("all")
-    
+
+    #draw border
+    myGlobals.canvas_draw.delete('border')
     mycolor = '#%02x%02x%02x' % (
             myGlobals.palette[myGlobals.data_border][0],
             myGlobals.palette[myGlobals.data_border][1],
             myGlobals.palette[myGlobals.data_border][2]
     )
+    
+    myGlobals.FULL_SCREEN_WIDTH = (myGlobals.IMAGE_WIDTH+myGlobals.BORDER_WIDTH*2)*myGlobals.IMAGE_SCALE
+    myGlobals.FULL_SCREEN_HEIGHT = (myGlobals.IMAGE_HEIGHT+myGlobals.BORDER_WIDTH*2)*myGlobals.IMAGE_SCALE
 
-    myGlobals.canvas_draw.create_rectangle(0, 0, myGlobals.FULL_SCREEN_WIDTH, myGlobals.FULL_SCREEN_HEIGHT, fill=mycolor, tags='border')
+    myGlobals.canvas_draw.create_rectangle(
+        0,
+        0,
+        myGlobals.FULL_SCREEN_WIDTH*myGlobals.IMAGE_SCALE,
+        myGlobals.FULL_SCREEN_HEIGHT*myGlobals.IMAGE_SCALE,
+        fill=mycolor,
+        tags='border'
+    )
 
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_rectangle.html
     #if (draw_border) :
     #    myGlobals.canvas_draw.create_rectangle(0, 0, myGlobals.FULL_SCREEN_WIDTH, myGlobals.FULL_SCREEN_HEIGHT, fill=mycolor, tags='border')
 
+    #draw PETSCII-image
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_image.html
-    myGlobals.canvas_draw.create_image(myGlobals.BORDER_WIDTH, myGlobals.BORDER_WIDTH, image=myGlobals.my_photo_draw, anchor=tk.NW, tags='petscii_image')
+    myGlobals.canvas_draw.delete('petscii_image')
+    myGlobals.canvas_draw.create_image(
+        0,  #x
+        0,  #y
+        image=myGlobals.my_photo_draw,
+        anchor=tk.NW,
+        tags='petscii_image'
+    )
+
     
     create_draw_canvas_grid()
 
+    #selection box
     BOX_COLOR = '#00ff00'
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_rectangle.html
     myGlobals.canvas_draw.create_rectangle(
@@ -767,13 +803,23 @@ def refresh_draw_image(draw_border = False):
         myGlobals.canvas_draw.itemconfigure('border', fill=mycolor)
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_image.html    
     myGlobals.canvas_draw.itemconfigure('petscii_image', image=myGlobals.my_photo_draw)
-    
+
+    #petscii image: position
+    myGlobals.canvas_draw.coords(
+        'petscii_image',
+        [
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2,
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2
+        ]
+    )
+
+    #grid: show or hide
     if (myGlobals.show_grid) :
-        myGlobals.canvas_draw.itemconfigure("grid", state='normal')
+        myGlobals.canvas_draw.itemconfigure('grid', state='normal')
     else :
-        myGlobals.canvas_draw.itemconfigure("grid", state='hidden')
-
-
+        myGlobals.canvas_draw.itemconfigure('grid', state='hidden')
+    
+    
     #print(myGlobals.canvas_draw.itemconfigure('box'))
 
     if (myGlobals.box_visible) :
@@ -783,10 +829,10 @@ def refresh_draw_image(draw_border = False):
 
         myGlobals.canvas_draw.coords(
             'box',  #tag
-            myGlobals.box_start_x*8*myGlobals.IMAGE_SCALE+myGlobals.BORDER_WIDTH,
-            myGlobals.box_start_y*8*myGlobals.IMAGE_SCALE+myGlobals.BORDER_WIDTH,
-            myGlobals.box_end_x*8*myGlobals.IMAGE_SCALE+myGlobals.BORDER_WIDTH,
-            myGlobals.box_end_y*8*myGlobals.IMAGE_SCALE+myGlobals.BORDER_WIDTH
+            (myGlobals.BORDER_WIDTH/2+myGlobals.box_start_x*8)*myGlobals.IMAGE_SCALE,
+            (myGlobals.BORDER_WIDTH/2+myGlobals.box_start_y*8)*myGlobals.IMAGE_SCALE,
+            (myGlobals.BORDER_WIDTH/2+myGlobals.box_end_x*8)*myGlobals.IMAGE_SCALE,
+            (myGlobals.BORDER_WIDTH/2+myGlobals.box_end_y*8)*myGlobals.IMAGE_SCALE
         )
     else :
         myGlobals.canvas_draw.itemconfigure('box',state='hidden')
@@ -989,10 +1035,10 @@ def update_info():
 
 
 
-def mouse_draw_Release3(event):
+def mouse_rightButton_release(event):
     myGlobals.box_selecting = False
 
-def mouse_draw_Button3(event):
+def mouse_rightButton_press(event):
     myGlobals.box_selecting = True
     myGlobals.box_start_x = myGlobals.mouse_posx
     myGlobals.box_start_y = myGlobals.mouse_posy
@@ -1148,6 +1194,88 @@ def find_char_4x4 (
         return char,erase
 
     #return char
+
+
+def zoom_in(self) :
+    if (myGlobals.IMAGE_SCALE < 6) :
+        myGlobals.IMAGE_SCALE += 1
+        zoom_perform()
+
+
+def zoom_out(self) :    
+    if (myGlobals.IMAGE_SCALE > 2) :
+        myGlobals.IMAGE_SCALE -= 1
+        zoom_perform()
+
+
+def zoom_perform() :
+    #print('zoom: %d'%myGlobals.IMAGE_SCALE)    
+    #char selector
+    draw_charset_image()
+    refresh_chars_image()
+    myGlobals.canvas_chars.configure(
+        width=(16*8)*myGlobals.IMAGE_SCALE,
+        height=(16*8)*myGlobals.IMAGE_SCALE
+    )
+
+    #petscii image
+    draw_petscii_image_full()
+    refresh_draw_image(draw_border=True)
+
+    myGlobals.canvas_draw.configure(
+        width=(320+myGlobals.BORDER_WIDTH)*myGlobals.IMAGE_SCALE,
+        height=(200+myGlobals.BORDER_WIDTH)*myGlobals.IMAGE_SCALE
+    )
+    
+    create_draw_canvas_grid()
+
+    """
+    myGlobals.canvas_draw.coords(
+        'petscii_image',
+        [
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2,
+            myGlobals.BORDER_WIDTH*myGlobals.IMAGE_SCALE/2
+        ]
+    )
+    """
+
+
+    #grid
+    #create_draw_canvas_grid()
+    
+    #create_draw_canvas_element()
+
+    #refresh_draw_image()
+
+    #myGlobals.root.update()
+    
+    
+    #myGlobals.root.update_idletasks()
+
+    #myGlobals.root.destroy()
+    #myGlobals.root.__init__()
+
+    #main.init_gui()
+
+    #myGlobals.canvas_chars.update()
+
+    
+def mouse_wheel(event):
+    if (
+        (event.num == 5) |
+        (int(event.delta / 120) == -1) |
+        (event.delta == -1)
+    ) :
+        #mouse wheel down
+        zoom_out(0)
+
+    if (
+        (event.num == 4) |
+        (int(event.delta / 120) == 1) |
+        (event.delta == 1)
+    ) :
+        #mouse wheel up
+        zoom_in(0)
 
 
 

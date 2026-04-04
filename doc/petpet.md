@@ -224,6 +224,7 @@ or
 (next release candidate)
 
 * improved GUI
+* mouse wheel in drawing window zooms in and out
 * added "open config" menu item
 * added layout for dirart "config_dirart.json" (with restricted character-set)
 

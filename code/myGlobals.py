@@ -1,7 +1,7 @@
 import os
 import sys
 import tkinter as tk
-
+import platform
 
 def resource_path(relative_path):
     """ Get absolute path to resource, works for dev and for PyInstaller """
@@ -15,6 +15,7 @@ def _global_constants():
 
 PROGNAME = 'PetPet';
 
+operating_system = platform.system()
 
 def resource_path(relative_path):
     #Get absolute path to resource, works for dev and for PyInstaller
@@ -80,9 +81,9 @@ INIT_BORDER = 0 #black
 CHAR_WIDTH = 40
 CHAR_HEIGHT = 25
 
-BORDER_SIZE = 2
+BORDER_SIZE = 1
 
-IMAGE_SCALE = 2
+IMAGE_SCALE = 2 #default setting
 IMAGE_WIDTH = CHAR_WIDTH*8
 IMAGE_HEIGHT = CHAR_HEIGHT*8
 BORDER_WIDTH = BORDER_SIZE*8*IMAGE_SCALE

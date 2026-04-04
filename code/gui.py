@@ -184,10 +184,10 @@ def create_image_draw (
 
     myGlobals.canvas_draw.delete("all")
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_rectangle.html
-    myGlobals.canvas_draw.create_rectangle(0, 0, myGlobals.FULL_SCREEN_WIDTH, myGlobals.FULL_SCREEN_HEIGHT, fill='#000000', tags='border')
+    #myGlobals.canvas_draw.create_rectangle(0, 0, myGlobals.FULL_SCREEN_WIDTH, myGlobals.FULL_SCREEN_HEIGHT, fill='#000000', tags='border')
     
     #https://anzeljg.github.io/rin2/book2/2405/docs/tkinter/create_image.html
-    myGlobals.canvas_draw.create_image(myGlobals.BORDER_WIDTH, myGlobals.BORDER_WIDTH, image=myGlobals.my_photo_draw, anchor=tk.NW, tags='petscii_image')
+    #myGlobals.canvas_draw.create_image(myGlobals.BORDER_WIDTH, myGlobals.BORDER_WIDTH, image=myGlobals.my_photo_draw, anchor=tk.NW, tags='petscii_image')
 
     action.create_draw_canvas_elements()
 
@@ -196,15 +196,45 @@ def create_image_draw (
         column=0,
         sticky=tk.W+tk.E+tk.N+tk.S
     )
-    myGlobals.canvas_draw.grid_columnconfigure(0, weight=1)
-    myGlobals.canvas_draw.grid_rowconfigure(0, weight=1)
+    ###myGlobals.canvas_draw.grid_columnconfigure(0, weight=1)
+    ###myGlobals.canvas_draw.grid_rowconfigure(0, weight=1)
     
+    # mouse wheel
+    #   (Windows)
+    myGlobals.canvas_draw.bind('<MouseWheel>' ,action.mouse_wheel)
+    #   (Linux)
+    myGlobals.canvas_draw.bind('<Button-4>' ,action.mouse_wheel)
+    myGlobals.canvas_draw.bind('<Button-5>' ,action.mouse_wheel)
+    # mouse wheel-button
+    #myGlobals.canvas_editor.bind('<Motion>', action.mouse_motion_edit_window)
+
+    #normal mouse operations
     myGlobals.canvas_draw.bind('<Motion>', action.mouse_draw_Motion)
     myGlobals.canvas_draw.bind('<Button-1>', action.mouse_draw_Button1)
     myGlobals.canvas_draw.bind('<B1-Motion>', action.mouse_draw_Button1Motion)
     #myGlobals.canvas_draw.bind('<Button>', action.mouse_draw_Button1)
-    myGlobals.canvas_draw.bind('<ButtonPress-3>', action.mouse_draw_Button3)
-    myGlobals.canvas_draw.bind('<ButtonRelease-3>', action.mouse_draw_Release3)
+    #myGlobals.canvas_draw.bind('<ButtonPress-3>', action.mouse_rightButton_press)
+    #myGlobals.canvas_draw.bind('<ButtonRelease-3>', action.mouse_rightButton_release)
+
+
+    #https://docs.python.org/3/library/platform.html
+    #platform.system() : 'Linux', 'Darwin', 'Java', 'Windows'
+    if (myGlobals.operating_system == 'Darwin') :
+        #darwin macos
+        #myGlobals.canvas_draw.bind('<Button-3>', action.mouse_draw_Button_middle)
+        #myGlobals.canvas_draw.bind('<mouse_rightButton_release>', action.mouse_rightButton_release_middle)
+        #myGlobals.canvas_draw.bind('<B3-Motion>', action.mouse_middle_button_motion)
+        myGlobals.canvas_draw.bind('<Button-2>', action.mouse_rightButton_press)
+        #myGlobals.canvas_draw.bind('<B3-Motion>', action.mouse_rightButton_motion)
+        myGlobals.canvas_draw.bind('<ButtonRelease-2>', action.mouse_rightButton_release)
+    else :
+        #linux and windows
+        #myGlobals.canvas_draw.bind('<Button-2>', action.mouse_draw_Button_middle)
+        #myGlobals.canvas_draw.bind('<ButtonRelease-2>', action.mouse_rightButton_release_middle)
+        #myGlobals.canvas_draw.bind('<B2-Motion>', action.mouse_middle_button_motion)
+        myGlobals.canvas_draw.bind('<Button-3>', action.mouse_rightButton_press)
+        #myGlobals.canvas_draw.bind('<B3-Motion>', action.mouse_rightButton_motion)
+        myGlobals.canvas_draw.bind('<ButtonRelease-3>', action.mouse_rightButton_release)
 
 
 
@@ -271,8 +301,8 @@ def create_toolbox (
         relief=tk.RAISED
         )
     frame_inner.grid()
-    frame_inner.grid_columnconfigure(0, weight=1)
-    frame_inner.grid_rowconfigure(0, weight=1)
+    ###frame_inner.grid_columnconfigure(0, weight=1)
+    ###frame_inner.grid_rowconfigure(0, weight=1)
  
     
     MODES = [
@@ -432,10 +462,10 @@ def create_middle (
         column=_column,
         sticky=tk.W+tk.E+tk.S+tk.N
     )
-    frame_border.grid_columnconfigure(0, weight=0)
-    frame_border.grid_columnconfigure(1, weight=1)
-    frame_border.grid_columnconfigure(2, weight=0)
-    frame_border.grid_rowconfigure(0, weight=1)
+    ###frame_border.grid_columnconfigure(0, weight=0)
+    ###frame_border.grid_columnconfigure(1, weight=1)
+    ###frame_border.grid_columnconfigure(2, weight=0)
+    ###frame_border.grid_rowconfigure(0, weight=1)
 
 
     #frame left
@@ -462,8 +492,8 @@ def create_middle (
         column=1,
         sticky=tk.W+tk.E+tk.N+tk.S
     )
-    frame_middle.grid_columnconfigure(0, weight=1)
-    frame_middle.grid_rowconfigure(0, weight=1)
+    ###frame_middle.grid_columnconfigure(0, weight=1)
+    ###frame_middle.grid_rowconfigure(0, weight=1)
 
 
     #frame right
@@ -475,7 +505,8 @@ def create_middle (
     frame_right.grid(
         row=0,
         column=2,
-        sticky=tk.E
+        sticky=tk.W+tk.E+tk.N+tk.S
+        #sticky=tk.E
     )
 
 
@@ -586,8 +617,8 @@ def create_colorpicker (
         relief=tk.RAISED
         )
     frame_inner.grid()
-    frame_inner.grid_columnconfigure(0, weight=1)
-    frame_inner.grid_rowconfigure(0, weight=1)
+    ###frame_inner.grid_columnconfigure(0, weight=1)
+    ###frame_inner.grid_rowconfigure(0, weight=1)
 
     #labels
     _row = 0

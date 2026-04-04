@@ -9,39 +9,8 @@ import tkinter as tk
 import argparse
 
 
-
-
-def _main_procedure() :
-    #writes args
-    
-    #print('%s v%s [%s] *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION, myGlobals.LAST_EDITED))
-    print('%s %s *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION))
-
-    #https://docs.python.org/3/library/argparse.html
-    parser = argparse.ArgumentParser(
-        description='This is a PETSCII editor. Press F1 for help in the program.',
-        epilog='Example: '+sys.argv[0]+' -p gfx.json -c config.json -f font.bin'
-    )
-    parser.add_argument('-p', '--petscii_file', dest='petscii_filename', help='petscii filename (.json)')
-    parser.add_argument('-c', '--config_file', dest='config_filename', help='name of configuration file (.json) default: "'+myGlobals.RES_CONFIG+'"', default=myGlobals.RES_CONFIG)
-    parser.add_argument('-f', '--font_file', dest='font_filename', help='name of font (2048 bytes) default: "'+myGlobals.CHARROM_UPPERCASE+'"', default=myGlobals.CHARROM_UPPERCASE)
-    myGlobals.args = parser.parse_args()
-
-    #action.save_config()
-    #return None
-
-    action.load_config()
-
-    action.load_charset()
-    if (myGlobals.args.petscii_filename) :
-        action.load_petscii_json()
-    else :
-        myGlobals.args.petscii_filename = 'image.json'
-        myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
-        action.clear_image()
-
-
-    
+def init_gui (
+) :
     #main procedure
     #title_string = myGlobals.PROGNAME+' v'+myGlobals.VERSION+' ['+myGlobals.LAST_EDITED+'] *** by fieserWolF'
     title_string = myGlobals.PROGNAME+' '+myGlobals.VERSION+' *** by fieserWolF'
@@ -52,9 +21,9 @@ def _main_procedure() :
         background=myGlobals.BGCOLOR
     )
     myGlobals.root.grid_columnconfigure(0, weight=1)
-    myGlobals.root.grid_rowconfigure(0, weight=0)
-    myGlobals.root.grid_rowconfigure(1, weight=1)
-    myGlobals.root.grid_rowconfigure(2, weight=0)
+    ###myGlobals.root.grid_rowconfigure(0, weight=0)
+    ###myGlobals.root.grid_rowconfigure(1, weight=1)
+    ###myGlobals.root.grid_rowconfigure(2, weight=0)
 
     gui.create_top(
         myGlobals.root,
@@ -155,5 +124,39 @@ def _main_procedure() :
     myGlobals.root.bind('?', lambda event: action.userwrite_letter('?'))
 
     myGlobals.root.protocol('WM_DELETE_WINDOW', gui.quit_application)
-   
+
+
+def _main_procedure() :
+    #writes args
+    
+    #print('%s v%s [%s] *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION, myGlobals.LAST_EDITED))
+    print('%s %s *** by fieserWolF' % (myGlobals.PROGNAME, myGlobals.VERSION))
+
+    #https://docs.python.org/3/library/argparse.html
+    parser = argparse.ArgumentParser(
+        description='This is a PETSCII editor. Press F1 for help in the program.',
+        epilog='Example: '+sys.argv[0]+' -p gfx.json -c config.json -f font.bin'
+    )
+    parser.add_argument('-p', '--petscii_file', dest='petscii_filename', help='petscii filename (.json)')
+    parser.add_argument('-c', '--config_file', dest='config_filename', help='name of configuration file (.json) default: "'+myGlobals.RES_CONFIG+'"', default=myGlobals.RES_CONFIG)
+    parser.add_argument('-f', '--font_file', dest='font_filename', help='name of font (2048 bytes) default: "'+myGlobals.CHARROM_UPPERCASE+'"', default=myGlobals.CHARROM_UPPERCASE)
+    myGlobals.args = parser.parse_args()
+
+    #action.save_config()
+    #return None
+
+    action.load_config()
+
+    action.load_charset()
+    if (myGlobals.args.petscii_filename) :
+        action.load_petscii_json()
+    else :
+        myGlobals.args.petscii_filename = 'image.json'
+        myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
+        action.clear_image()
+
+    init_gui()
+
+    myGlobals.selected_char = myGlobals.chars_layout[0]
+    
     tk.mainloop()
