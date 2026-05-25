@@ -45,6 +45,13 @@ def open_petscii_bin():
     myGlobals.args.petscii_bin_filename = user_filename_open
     action.load_petscii_bin()
 
+def open_petscii_bin_screen_only():    
+    ftypes = [('Image Files', '*.bin')]
+    user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.petscii_bin_filename = user_filename_open
+    action.load_petscii_bin_screen_only()
+
 def open_petscii_bin_petscii_editor():    
     ftypes = [('PETSCII Editor', '*.prg')]
     user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
@@ -60,6 +67,13 @@ def save_as_petscii_json():
     myGlobals.args.petscii_filename = user_filename_open
     action.save_petscii_json()
 
+
+def save_as_petscii_bin_screen_only():    
+    ftypes = [('Image Files', '*.bin')]
+    user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.petscii_bin_filename = user_filename_open
+    action.save_petscii_bin_screen_only()
 
 def save_as_petscii_bin():    
     ftypes = [('Image Files', '*.bin')]
@@ -127,6 +141,9 @@ def create_drop_down_menu (
     filemenu.add_separator()
     filemenu.add_command(label="export C64 executable", command=save_as_executable)
     filemenu.add_command(label="export PPM image", command=save_as_ppm)
+    filemenu.add_separator()
+    filemenu.add_command(label="import screen only", command=open_petscii_bin_screen_only)
+    filemenu.add_command(label="export screen only", command=save_as_petscii_bin_screen_only)
     filemenu.add_separator()
     filemenu.add_command(label="open font", command=open_font)
     filemenu.add_command(label="open config", command=open_config_json)

@@ -315,6 +315,7 @@ Changes in 1.03
 -  added “open config” menu item
 -  added layout for dirart “config_dirart.json” (with restricted
    character-set)
+-  added “import screen only” and “export screen only”
 
 Changes in 1.02
 ---------------

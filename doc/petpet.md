@@ -227,6 +227,7 @@ or
 * mouse wheel in drawing window zooms in and out
 * added "open config" menu item
 * added layout for dirart "config_dirart.json" (with restricted character-set)
+* added "import screen only" and "export screen only"
 
 
 ## Changes in 1.02

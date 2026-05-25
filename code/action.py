@@ -108,6 +108,31 @@ def load_petscii_bin_petscii_editor() :
     refresh_draw_image(draw_border=True)
     update_info()
 
+    
+def load_petscii_bin_screen_only() :
+    """
+    $000-$03e7 chars
+    """
+
+    START_OFFSET = 0
+    START_CHARS = START_OFFSET+0x0000
+    SIZE_CHARS = myGlobals.CHAR_HEIGHT*myGlobals.CHAR_WIDTH
+    SIZE_COLORS = myGlobals.CHAR_HEIGHT*myGlobals.CHAR_WIDTH
+
+    data = load_some_data(myGlobals.args.petscii_bin_filename)
+    myGlobals.show_grid = True
+    myGlobals.data_char = data[START_CHARS:START_CHARS+SIZE_CHARS]
+    myGlobals.data_bg = 0x00
+    myGlobals.data_border = 0x00
+    
+    for i in range(0,SIZE_COLORS):
+         myGlobals.data_color[i] = 0x01
+   
+    myGlobals.textvariable_filename.set(myGlobals.args.petscii_bin_filename)
+    draw_petscii_image_full()
+    refresh_draw_image(draw_border=True)
+    update_info()
+
 """
 def load_petscii_bin_editor() :
     START_CHARS = 2
@@ -891,6 +916,13 @@ def save_some_data(
     file_out.close()
 
 
+
+def save_petscii_bin_screen_only():
+    tmp = []
+    for i in myGlobals.data_char :
+        tmp.append(i & 0b11111111)
+    save_some_data(myGlobals.petscii_bin_filename, tmp)
+    #myGlobals.textvariable_filename.set(myGlobals.petscii_bin_filename)
 
 def save_petscii_bin():
     tmp = []
