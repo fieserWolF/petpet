@@ -228,6 +228,7 @@ or
 * added "open config" menu item
 * added layout for dirart "config_dirart.json" (with restricted character-set)
 * added "import screen only" and "export screen only"
+* added "import petmate" and "export petmate" (petmate9 support)
 
 
 ## Changes in 1.02

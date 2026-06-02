@@ -155,6 +155,19 @@ def _main_procedure() :
         myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
         action.clear_image()
 
+    #debug load petmate
+    #myGlobals.args.petscii_filename = 'petmate.json'
+    #myGlobals.args.petscii_filename = 'dirart-petmate.json'
+    #action.load_petmate()
+    #return None
+
+    #debug load petmate
+    #myGlobals.args.petscii_filename = 'gary.json'
+    #action.load_petscii_json()
+    #myGlobals.args.petscii_filename = 'petmate_tmp.json'
+    #action.save_petmate()
+    #return None
+
     init_gui()
 
     myGlobals.selected_char = myGlobals.chars_layout[0]

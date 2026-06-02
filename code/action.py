@@ -51,6 +51,57 @@ def load_petscii_json() :
     update_info()
 
 
+def load_petmate() :
+    data = load_json(myGlobals.args.petscii_filename)
+    import_screen=0
+    shift_y=0
+    shift_x=0
+    print('    found: petmate v%d, screens: %d' %(data['version'], len(data['screens'])))
+    if (data['version'] != 4) :
+        print('IMPORT ERROR: petmate version %d found. Can only import petmate version 4.'%data['version'])
+        return None
+
+    my_screen = data['framebufs'][import_screen]
+    print('    import settings: screen no %d: "%s" (%dx%d), shift: y=%d, x=%d' %(
+        import_screen,
+        my_screen['name'],
+        my_screen['width'],
+        my_screen['height'],
+        shift_y,
+        shift_x
+        )
+    )
+    #myGlobals.show_grid = data['settings']['grid']
+    myGlobals.data_bg = my_screen['backgroundColor']
+    myGlobals.data_border = my_screen['borderColor']
+
+    #clear data
+    myGlobals.data_char = [myGlobals.INIT_CHAR] * myGlobals.CHAR_HEIGHT * myGlobals.CHAR_WIDTH
+    myGlobals.data_color = [myGlobals.INIT_COLOR] * myGlobals.CHAR_HEIGHT * myGlobals.CHAR_WIDTH
+    
+
+    max_y = 25
+    if (my_screen['height']-shift_y < max_y) : max_y = my_screen['height']-shift_y 
+
+    max_x = 40
+    if (my_screen['width']-shift_x < max_x) : max_x = my_screen['width']-shift_x
+
+    my_data = my_screen['framebuf']
+    
+    for y in range(0,max_y) :
+        for x in range(0,max_x) :
+            myGlobals.data_char[y*myGlobals.CHAR_WIDTH+x] = my_data[y+shift_y][x+shift_x]['code']
+            myGlobals.data_color[y*myGlobals.CHAR_WIDTH+x] = my_data[y+shift_y][x+shift_x]['color']
+
+    #myGlobals.args.font_filename =  data['settings']['font']
+    #load_charset()
+    myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
+    #myGlobals.user_drawcolor.set(myGlobals.data_color)
+    draw_petscii_image_full()
+    refresh_draw_image(draw_border=True)
+    update_info()
+
+
 def load_petscii_bin() :
     START_CHARS = 0
     START_COLOR = 1000
@@ -195,6 +246,39 @@ def save_petscii_json() :
         },
         'char' : myGlobals.data_char,
         'color' : myGlobals.data_color
+    }
+
+    write_json(
+        myGlobals.args.petscii_filename,
+        my_data
+    )
+    myGlobals.textvariable_filename.set(myGlobals.args.petscii_filename)
+    myGlobals.image_is_saved = True
+
+
+
+def save_petmate() :
+    my_screen = []
+    for y in range(0,25) :
+        my_row = []
+        for x in range(0,40) :
+            my_row.append({'code':myGlobals.data_char[y*40+x], 'color':myGlobals.data_color[y*40+x]})
+        my_screen.append(my_row)
+
+    my_data = {
+        'version' : 4,
+        'screens' : [0],
+        'framebufs' : [{
+            'width' : 40,
+            'height' : 25,
+            'columnMode' : 40,
+            'backgroundColor' : myGlobals.data_bg,
+            'borderColor' : myGlobals.data_border,
+            'borderOn' : 1,
+            'charset' : "upper",
+            'name' : "petpet export",
+            'framebuf' : my_screen,
+        }]
     }
 
     write_json(

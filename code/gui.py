@@ -7,6 +7,13 @@ import tkinter.filedialog as filedialog
 
 
 
+def open_petmate():    
+    ftypes = [('Image Files', '*.json')]
+    user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.petscii_filename = user_filename_open
+    action.load_petmate()
+
 def open_petscii_json():    
     ftypes = [('Image Files', '*.json')]
     user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
@@ -66,6 +73,14 @@ def save_as_petscii_json():
     if not user_filename_open : return None
     myGlobals.args.petscii_filename = user_filename_open
     action.save_petscii_json()
+
+
+def save_as_petmate():    
+    ftypes = [('Image Files', '*.json')]
+    user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
+    if not user_filename_open : return None
+    myGlobals.args.petscii_filename = user_filename_open
+    action.save_petmate()
 
 
 def save_as_petscii_bin_screen_only():    
@@ -135,6 +150,9 @@ def create_drop_down_menu (
     filemenu.add_separator()
     filemenu.add_command(label="import PETSCII binary", command=open_petscii_bin)
     filemenu.add_command(label="export PETSCII binary", command=save_as_petscii_bin)
+    filemenu.add_separator()
+    filemenu.add_command(label="import petmate", command=open_petmate)
+    filemenu.add_command(label="export petmate", command=save_as_petmate)
     filemenu.add_separator()
     filemenu.add_command(label="import PETSCII editor", command=open_petscii_bin_petscii_editor)
     filemenu.add_command(label="export PETSCII editor", command=save_as_petscii_bin_petscii_editor)
