@@ -8,7 +8,7 @@ import tkinter.filedialog as filedialog
 
 
 def open_petmate():    
-    ftypes = [('Image Files', '*.json')]
+    ftypes = [('Petmate Files', '*.*')]
     user_filename_open = filedialog.askopenfilename(filetypes = ftypes)
     if not user_filename_open : return None
     myGlobals.args.petscii_filename = user_filename_open
@@ -76,7 +76,7 @@ def save_as_petscii_json():
 
 
 def save_as_petmate():    
-    ftypes = [('Image Files', '*.json')]
+    ftypes = [('Petmate Files', '*.*')]
     user_filename_open = filedialog.asksaveasfilename(filetypes = ftypes)
     if not user_filename_open : return None
     myGlobals.args.petscii_filename = user_filename_open
