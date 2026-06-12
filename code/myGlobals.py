@@ -37,6 +37,7 @@ GFX_BORDER = resource_path(RESOURCE_DIR+'/icon_border.xbm')
 GFX_GRID = resource_path(RESOURCE_DIR+'/icon_grid.xbm')
 GFX_WRITEMODE = resource_path(RESOURCE_DIR+'/icon_writemode.xbm')
 GFX_WRITEMODE_INVERTED = resource_path(RESOURCE_DIR+'/icon_writemode_inverted.xbm')
+GFX_RVS = resource_path(RESOURCE_DIR+'/icon_rvs.xbm')
 GFX_4X4 = resource_path(RESOURCE_DIR+'/icon_4x4.xbm')
 GFX_4X4_INVERTED = resource_path(RESOURCE_DIR+'/icon_4x4_inverted.xbm')
 
@@ -281,3 +282,6 @@ button_writemode_inverted = tk.Button()
 button_4x4 = tk.Button()
 button_4x4_inverted = tk.Button()
 button_grid = tk.Button()
+button_rvs = tk.Button()
+
+mouse_release_Button1 = False

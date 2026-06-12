@@ -523,6 +523,7 @@ def select_change_bg(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -538,6 +539,7 @@ def select_change_border(
     myGlobals.button_border.configure(relief=tk.SUNKEN)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -553,6 +555,7 @@ def select_draw(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -579,6 +582,7 @@ def select_writemode(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.SUNKEN)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -594,6 +598,7 @@ def select_writemode_inverted(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.SUNKEN)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -610,7 +615,24 @@ def select_4x4(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.SUNKEN)
+    myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_grid.configure(relief=tk.RAISED)
+    update_info()
+
+def select_rvs(
+):
+    myGlobals.mode = 'rvs'
+    myGlobals.button_pen.configure(relief=tk.RAISED)
+    myGlobals.button_brush.configure(relief=tk.RAISED)
+    myGlobals.button_pencil.configure(relief=tk.RAISED)
+    myGlobals.button_bg.configure(relief=tk.RAISED)
+    myGlobals.button_border.configure(relief=tk.RAISED)
+    myGlobals.button_writemode.configure(relief=tk.RAISED)
+    myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.SUNKEN)
+    myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
     update_info()
@@ -626,6 +648,7 @@ def select_4x4_inverted(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.SUNKEN)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -642,6 +665,7 @@ def select_brush(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -657,6 +681,7 @@ def select_pencil(
     myGlobals.button_border.configure(relief=tk.RAISED)
     myGlobals.button_writemode.configure(relief=tk.RAISED)
     myGlobals.button_writemode_inverted.configure(relief=tk.RAISED)
+    myGlobals.button_rvs.configure(relief=tk.RAISED)
     myGlobals.button_4x4.configure(relief=tk.RAISED)
     myGlobals.button_4x4_inverted.configure(relief=tk.RAISED)
     myGlobals.button_grid.configure(relief=tk.RAISED)
@@ -1395,20 +1420,35 @@ def mouse_wheel(event):
 
 
 
+def mouse_release_Button1(event):
+    myGlobals.mouse_release_Button1 = True
+    #print('button release')
+    
+    
+
+
 def mouse_draw_Button1(event):
+
+    #print('button_release = %s'% myGlobals.mouse_release_Button1)
 
     #a new position?
     if (
         (myGlobals.mode == 'pen') |
         (myGlobals.mode == 'pencil') |
-        (myGlobals.mode == 'brush')
+        (myGlobals.mode == 'brush') |
+        (myGlobals.mode == 'rvs')
     ) :
-        if (
-            (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
-            (myGlobals.last_drawn_posy == myGlobals.mouse_posy)
-        ) :
-            #print('action.mouse_draw_Button1(event): old position, skipped.')
-            return None
+        if (myGlobals.mouse_release_Button1 == False) :
+            if (
+                (myGlobals.last_drawn_posx == myGlobals.mouse_posx) &
+                (myGlobals.last_drawn_posy == myGlobals.mouse_posy)
+            ) :
+                #print('action.mouse_draw_Button1(event): old position, skipped.')
+                return None
+
+    myGlobals.mouse_release_Button1 = False
+    #print('draw')
+
 
     if (
         (myGlobals.mode == '4x4') |
@@ -1452,6 +1492,17 @@ def mouse_draw_Button1(event):
     if (myGlobals.mode == 'brush') :
         undo_store()
         myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = myGlobals.user_drawcolor.get()
+        draw_petscii_image_single(
+            myGlobals.mouse_posx,   #x
+            myGlobals.mouse_posy,   #y
+            myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx],    #char
+            myGlobals.data_color[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx]  #color
+        )
+        refresh_draw_image()
+    if (myGlobals.mode == 'rvs') :
+        undo_store()
+        rvs_char = myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] ^ 0b10000000
+        myGlobals.data_char[myGlobals.mouse_posy * myGlobals.CHAR_WIDTH +myGlobals.mouse_posx] = rvs_char
         draw_petscii_image_single(
             myGlobals.mouse_posx,   #x
             myGlobals.mouse_posy,   #y

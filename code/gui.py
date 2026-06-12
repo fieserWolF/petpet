@@ -246,6 +246,7 @@ def create_image_draw (
     #normal mouse operations
     myGlobals.canvas_draw.bind('<Motion>', action.mouse_draw_Motion)
     myGlobals.canvas_draw.bind('<Button-1>', action.mouse_draw_Button1)
+    myGlobals.canvas_draw.bind('<ButtonRelease-1>', action.mouse_release_Button1)
     myGlobals.canvas_draw.bind('<B1-Motion>', action.mouse_draw_Button1Motion)
     #myGlobals.canvas_draw.bind('<Button>', action.mouse_draw_Button1)
     #myGlobals.canvas_draw.bind('<ButtonPress-3>', action.mouse_rightButton_press)
@@ -347,10 +348,11 @@ def create_toolbox (
             ('grid', myGlobals.GFX_GRID, 0, 1,1, action.select_toggle_grid),
             ('writemode', myGlobals.GFX_WRITEMODE, 0, 2,0, action.select_writemode),
             ('writemode inverted', myGlobals.GFX_WRITEMODE_INVERTED, 0, 2,1, action.select_writemode_inverted),
-            ('4x4', myGlobals.GFX_4X4, 0, 3,0, action.select_4x4),
-            ('4x4 inverted', myGlobals.GFX_4X4_INVERTED, 0, 3,1, action.select_4x4_inverted),
-            ('bg', myGlobals.GFX_BG, 0, 4,0, action.select_change_bg),
-            ('border', myGlobals.GFX_BORDER, 0, 4,1, action.select_change_border),
+            ('reverse', myGlobals.GFX_RVS, 0, 3,0, action.select_rvs),
+            ('4x4', myGlobals.GFX_4X4, 0, 4,0, action.select_4x4),
+            ('4x4 inverted', myGlobals.GFX_4X4_INVERTED, 0, 4,1, action.select_4x4_inverted),
+            ('bg', myGlobals.GFX_BG, 0, 5,0, action.select_change_bg),
+            ('border', myGlobals.GFX_BORDER, 0, 5,1, action.select_change_border),
     ]
     
     for text, my_image, my_underline, my_row, my_column, my_command in MODES:
@@ -371,6 +373,7 @@ def create_toolbox (
         if (text == 'border') : myGlobals.button_border = my_button
         if (text == 'writemode') : myGlobals.button_writemode = my_button
         if (text == 'writemode inverted') : myGlobals.button_writemode_inverted = my_button
+        if (text == 'reverse') : myGlobals.button_rvs = my_button
         if (text == '4x4') : myGlobals.button_4x4 = my_button
         if (text == '4x4 inverted') : myGlobals.button_4x4_inverted = my_button
         if (text == 'grid') : myGlobals.button_grid = my_button

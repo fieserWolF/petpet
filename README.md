@@ -229,6 +229,7 @@ or
 * added layout for dirart "config_dirart.json" (with restricted character-set)
 * added "import screen only" and "export screen only"
 * added "import petmate" and "export petmate" (petmate9 support)
+* added "reverse pen"
 
 
 ## Changes in 1.02
