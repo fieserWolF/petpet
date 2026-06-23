@@ -41,6 +41,14 @@ Ctrl-c | copy
 Ctrl-v | paste
 
 
+## mouse functions
+
+mouse | description
+---|---
+left button | draw characters
+right button | mark selection
+mouse wheel | zoom in and out
+
 
 ## drawing modes
 
@@ -53,6 +61,7 @@ brush | draw only colors
 pencil | draw only characters
 writemode | type characters on your keyboard directly at mouse position
 inverted writemode | type inverted characters on your keyboard directly at mouse position
+reverse pen | toggle reverse of all characters you click on
 4x4 | draw 4x4 pixels freely with your mouse
 inverted 4x4 | draw inverted 4x4 pixels freely with your mouse
 set bg | choose a color, then click into the picture to change the background color (\$d021)

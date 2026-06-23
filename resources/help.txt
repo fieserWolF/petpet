@@ -19,6 +19,17 @@ Ctrl-c      copy
 Ctrl-v      paste
 =========== ======================
 
+mouse functions
+---------------
+
+============ ===============
+mouse        description
+============ ===============
+left button  draw characters
+right button mark selection
+mouse wheel  zoom in and out
+============ ===============
+
 drawing modes
 -------------
 
@@ -39,6 +50,9 @@ Use left mouse-button to draw. These are the drawing modes:
 | inverted writemode                | type inverted characters on your  |
 |                                   | keyboard directly at mouse        |
 |                                   | position                          |
++-----------------------------------+-----------------------------------+
+| reverse pen                       | toggle reverse of all characters  |
+|                                   | you click on                      |
 +-----------------------------------+-----------------------------------+
 | 4x4                               | draw 4x4 pixels freely with your  |
 |                                   | mouse                             |
