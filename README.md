@@ -228,9 +228,13 @@ or
 
 
 
-## Changes in 1.03
+## Changes in 1.04
 
 (next release candidate)
+
+* ...
+
+## Changes in 1.03
 
 * improved GUI
 * mouse wheel in drawing window zooms in and out

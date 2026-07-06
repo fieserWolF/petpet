@@ -319,10 +319,15 @@ help, please, contact me:
 http://csdb.dk/scener/?id=3623 or
 `wolf@abyss-connection.de <wolf@abyss-connection.de>`__
 
-Changes in 1.03
+Changes in 1.04
 ---------------
 
 (next release candidate)
+
+-  …
+
+Changes in 1.03
+---------------
 
 -  improved GUI
 -  mouse wheel in drawing window zooms in and out
